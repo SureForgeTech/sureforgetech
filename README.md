@@ -5,7 +5,7 @@
 SureForgeTech builds practical software for the people who make, ship, secure, and operate software. The SureForge product family includes developer utilities, coding-agent tools, compliance automation, planning tools, and application platforms across desktop apps, command-line tools, editor extensions, Jira apps, and deployable server software.
 
 - Website: [sureforgetech.com](https://sureforgetech.com)
-- Product family: [sureforge.ai](https://sureforge.ai)
+- Product family: [SureForge products](https://sureforgetech.com/#products)
 - GitHub: [github.com/SureForgeTech](https://github.com/SureForgeTech)
 - Documentation: [sureforgetech.com/docs](https://sureforgetech.com/docs/)
 - Support: [sureforgetech.com/support](https://sureforgetech.com/support/)
