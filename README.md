@@ -32,17 +32,17 @@ This repository contains the initial corporate website and product portfolio. It
 
 ### Local development
 
-Requires Node.js 22 or newer.
+Requires Node.js 22 or newer and pnpm 10.12.1.
 
 ```sh
-npm ci
-npm run dev
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
 Build the static site with:
 
 ```sh
-npm run build
+pnpm build
 ```
 
 The generated site is in `dist/`. Cloudflare Pages can build with `npm run build` and use `dist` as the output directory.
@@ -53,4 +53,4 @@ This repository is the company website and product portfolio. For corrections to
 
 ## Legal and status notes
 
-Privacy, terms, and security materials are not published from this placeholder site. This README makes no assertion about corporate formation or trademark registration. Product and third-party names are used descriptively; no affiliation with Apple, Atlassian, Claris, or other vendors is implied.
+Privacy, terms, and security pages on the site are clearly marked as unpublished placeholders, not policies or statements. This README makes no assertion about corporate formation or trademark registration. Product and third-party names are used descriptively; no affiliation with Apple, Atlassian, Claris, or other vendors is implied.
