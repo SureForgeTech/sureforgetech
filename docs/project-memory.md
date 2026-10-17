@@ -41,6 +41,11 @@ Use these names consistently:
 | SureForge FM Snippets | Alfred productivity snippets |
 | SureForge Flow | Multi-tenant application platform |
 
+Committee selections of 2026-10-17 (recorded in the internal learnings archive):
+- the site may state one documented connection: SureForge Policy can import SureForge Agent run reports and delivery journals as evidence, which Policy records as operator diagnostics, not signed attestations. Nothing else may imply an integration;
+- Policy and Flow copy carries only README-documented facts under their maturity labels, with no certification, FedRAMP, CMMC or HIPAA-compliance claims;
+- the website's own claim that SureForge Agent does not merge code autonomously stays: it is true of the product.
+
 Preserve maturity and licensing information. In particular, Agent is a developer preview, Studio is in early development, and Flow is in development. Planned capabilities must remain identified as planned. Do not imply legal incorporation, registered trademarks, certification, third-party affiliation, or availability beyond the documented state.
 
 ## Implementation and verification learnings
