@@ -1,0 +1,20 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { products } from '../data/products.js';
+const groups = [...new Set(products.map((product) => product.category))];
+---
+<SiteLayout>
+  <section class="wrap hero">
+    <div class="eyebrow">SureForgeTech · SureForge product family</div>
+    <h1>Tools for<br />software builders.</h1>
+    <p>We build practical software for the people who make, ship, secure, and operate software. Our portfolio spans developer utilities, coding-agent tools, compliance automation, planning tools, and application platforms.</p>
+    <div class="actions"><a class="button" href="#products">Explore the products <span aria-hidden="true">&nbsp;↘</span></a><a class="button secondary" href="https://github.com/SureForgeTech">Visit us on GitHub</a></div>
+  </section>
+  <section id="products" class="wrap section" aria-labelledby="products-title">
+    <div class="section-head"><div><div class="eyebrow">The portfolio</div><h2 id="products-title">Nine tools. Different jobs.</h2><p>Native apps, command-line tools, editor extensions, Jira apps, and deployable server software.</p></div></div>
+    {groups.map((group) => <section aria-label={group} style="margin:28px 0 38px"><h3 style="font-size:.83rem;color:#a6b2c2;letter-spacing:.12em;text-transform:uppercase;margin:0 0 14px">{group}</h3><div class="grid">{products.filter((product) => product.category === group).map((product) => <article class="card"><div class="category">{product.category}</div><h3>{product.name}</h3><p>{product.description}</p><div class="meta"><span>{product.status}</span><a class="text-link" href={`/products/${product.slug}/`}>Explore →</a></div></article>)}</div></section>)}
+    <p class="note">Product names and capabilities may evolve. Availability and maturity are identified on each product page. Vendor names are used only to describe compatibility; no affiliation is implied.</p>
+  </section>
+  <section class="band"><div class="wrap band-inner"><div><div class="eyebrow">Built for real workflows</div><h2>Useful software, across the stack.</h2></div><p>Some tools run locally on your workstation. Others extend the tools teams already use or provide building blocks for deployed applications. We focus on clear workflows, human control, and practical utility.</p></div></section>
+  <section class="wrap section"><div class="section-head"><div><div class="eyebrow">Keep exploring</div><h2>Start with what you need.</h2></div></div><div class="actions"><a class="button secondary" href="/docs/">Documentation</a><a class="button secondary" href="/support/">Support</a><a class="button secondary" href="https://sureforge.ai">SureForge.ai</a></div></section>
+</SiteLayout>
