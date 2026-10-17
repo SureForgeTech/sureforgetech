@@ -28,7 +28,7 @@ Product names may evolve. References to third-party products identify compatibil
 
 ## This repository
 
-This repository contains the initial corporate website and product portfolio. It is a lightweight Astro site with Astro Starlight documentation, designed for static deployment to Cloudflare Pages. It provides a public-facing foundation; product pages and documentation will grow as release information is ready.
+This repository contains the corporate website and product portfolio. It is a lightweight Astro site with Astro Starlight documentation, deployed as a static site on Cloudflare Pages. The homepage uses the selected jade and steel identity, nine distinct product panels, purpose-based product discovery, and accessible product details. Product pages and documentation will grow as release information is ready.
 
 ### Local development
 
@@ -45,7 +45,7 @@ Build the static site with:
 pnpm build
 ```
 
-The generated site is in `dist/`. Cloudflare Pages can build with `npm run build` and use `dist` as the output directory.
+The generated site is in `dist/`. The Cloudflare Pages project is `sureforgetech`; production uses `https://sureforgetech.com`. See [deployment instructions](docs/deployment.md) for publishing and rollback. Only the generated `dist/` files are uploaded; design explorations and source files are not part of the deployed artifact.
 
 ## Contributing
 
