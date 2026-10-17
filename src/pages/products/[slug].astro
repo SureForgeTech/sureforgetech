@@ -3,8 +3,10 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 import { products } from '../../data/products.js';
 export function getStaticPaths() { return products.map((product) => ({ params: { slug: product.slug }, props: { product } })); }
 const { product } = Astro.props;
+const docsSlug = product.slug === 'sureforge-fm-alfred' ? 'sureforge-fm-snippets' : product.slug;
+const structuredData = [{ '@type': 'SoftwareApplication', '@id': `${product.link}#software`, name: product.name, url: product.link, description: product.description, applicationCategory: 'DeveloperApplication', operatingSystem: product.platforms, publisher: { '@id': 'https://sureforgetech.com/#organization' } }];
 ---
-<SiteLayout title={`${product.name} — SureForgeTech`} description={product.description}>
+<SiteLayout title={`${product.name} — SureForgeTech`} description={product.description} structuredData={structuredData}>
   <section class="wrap product-hero"><a class="back" href="/#products">← All products</a><div class="eyebrow" style="margin-top:32px">{product.category}</div><h1>{product.name}</h1><p class="lead">{product.description}</p></section>
-  <section class="wrap detail"><div><h2>About this product</h2><p class="plain">{product.description}</p><p class="plain">This page is an initial portfolio overview. Product documentation, support, and availability details will be published here as they are ready.</p><p><a class="text-link" href="/docs/">Browse documentation →</a></p></div><aside><div class="eyebrow">Current information</div><p><strong>Status</strong><br />{product.status}</p><p><strong>Platform</strong><br />{product.platforms}</p><p><strong>Product family</strong><br />SureForge</p></aside></section>
+  <section class="wrap detail"><div><h2>About this product</h2><p class="plain">{product.name} is part of the <a href="/sureforge/">SureForge software family</a> from SureForgeTech.</p><p class="plain">This page is an initial portfolio overview. Product documentation, support, and availability details will be published here as they are ready.</p><p><a class="text-link" href={`/docs/${docsSlug}/`}>Browse product documentation →</a></p></div><aside><div class="eyebrow">Current information</div><p><strong>Status</strong><br />{product.status}</p><p><strong>Platform</strong><br />{product.platforms}</p><p><strong>Product family</strong><br />SureForge</p></aside></section>
 </SiteLayout>

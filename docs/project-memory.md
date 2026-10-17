@@ -72,3 +72,10 @@ Compare the authoritative server, a public resolver, and the system resolver bef
 ## Working preferences
 
 Make reversible implementation choices and complete authorized work without repeated confirmation. Show a concrete, tested result. Keep progress updates concise. For branding, preserve selected assets and make focused refinements rather than generating unrelated replacements. Never commit credentials, local credential-manager references, or private operating notes to this public repository.
+
+## Search discoverability
+
+- On 2026-10-17, searches surfaced an unrelated instruction-only agent skill named SureForge. Do not reuse that project's description or imply it is our CLI. A search sample is not a universal ranking or indexing report.
+- `/sureforge/` is the canonical public explanation of the SureForge software family and its nine products. Homepage and product pages identify SureForgeTech as publisher; Organization, WebSite, and SoftwareApplication JSON-LD describe the visible information.
+- No ranking or AI citation is guaranteed. Keep this content factual and expand product docs with verified releases and useful original examples. Special AI text files are not a substitute for accessible, indexable content.
+- Next account-dependent step: verify domain ownership in Google Search Console and Bing Webmaster Tools, submit `https://sureforgetech.com/sitemap-index.xml`, and inspect indexing of `/`, `/sureforge/`, and `/products/sureforge/`. This work does not establish those accounts or claim submissions occurred. Check CDN crawl permissions if inspection reports blocking.

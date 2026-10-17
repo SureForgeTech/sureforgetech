@@ -1,0 +1,28 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { products } from '../data/products.js';
+const description = 'SureForge is the software product family from SureForgeTech, including SureForge Agent, an AI coding-agent CLI for macOS and Linux, and eight complementary tools.';
+---
+<SiteLayout title="What is SureForge? Software and AI coding tools — SureForgeTech" description={description}>
+  <section class="wrap product-hero">
+    <a class="back" href="/">← SureForgeTech home</a>
+    <p class="eyebrow" style="margin-top:32px">THE SUREFORGE SOFTWARE FAMILY</p>
+    <h1>What is SureForge?</h1>
+    <p class="lead">SureForge is the software product family from SureForgeTech. It brings together AI coding tools, security and compliance automation, planning apps, and developer utilities for individuals and engineering teams.</p>
+  </section>
+  <section class="wrap detail">
+    <div>
+      <h2>SureForge Agent: the AI coding-agent CLI</h2>
+      <p class="plain">SureForge Agent is a local command-line tool for controlled AI-assisted software development on macOS and Linux. It assigns bounded tasks to coding agents, runs validation, requests independent review, and returns results to a human. It does not merge code autonomously and requires no hosted service.</p>
+      <p class="plain">Agent is in developer preview. Installation and usage documentation is in preparation.</p>
+      <p><a class="text-link" href="/products/sureforge/">Explore SureForge Agent →</a></p>
+      <h2>One family. Nine products.</h2>
+      <p class="plain">Each product addresses a distinct part of the software workflow. Availability varies; the current status is shown below.</p>
+      {products.map(product => <article style="margin:28px 0"><h3><a href={product.link}>{product.name}</a></h3><p class="plain">{product.description}</p><p><strong>{product.status}</strong> · {product.platforms}</p></article>)}
+      <h2>Which SureForge is this?</h2>
+      <p class="plain">This site describes SureForge software published by SureForgeTech. The official website is sureforgetech.com and the GitHub organization is SureForgeTech. SureForge Agent is our local coding-agent CLI; descriptions of a standalone instruction-only agent skill using the same name refer to a different project.</p>
+      <p><a class="text-link" href="https://github.com/SureForgeTech">SureForgeTech on GitHub →</a></p>
+    </div>
+    <aside><p class="eyebrow">OFFICIAL PRODUCT INFORMATION</p><p><strong>Publisher</strong><br />SureForgeTech</p><p><strong>Product family</strong><br />SureForge</p><p><a href="/docs/">Product documentation</a></p><p>Product information updated October 17, 2026.</p></aside>
+  </section>
+</SiteLayout>
