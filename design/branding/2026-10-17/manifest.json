@@ -1,0 +1,193 @@
+{
+  "created": "2026-10-17",
+  "status": "concepts",
+  "generator": "built-in image generation",
+  "concepts": [
+    {
+      "number": 1,
+      "title": "Shared Horizon",
+      "file": "01-shared-horizon.png",
+      "sha256": "f3475da4f959041b8e7dab143bdc5184a5bd3f75fbdb6b722a0ca08f8971c78d"
+    },
+    {
+      "number": 2,
+      "title": "Interlock",
+      "file": "02-interlock.png",
+      "sha256": "f9eb10df6105c4a4252997300c4240086588580cc56f3984cd1d7cb6186f77dc"
+    },
+    {
+      "number": 3,
+      "title": "Facet",
+      "file": "03-facet.png",
+      "sha256": "e53e580db9bcfd210f1a5eeaeb156f2c40eb3dcbc46b595209ac6d83b4bb46ab"
+    },
+    {
+      "number": 4,
+      "title": "Humanist",
+      "file": "04-humanist.png",
+      "sha256": "2f0149f4e4f0359941b7ed0678e52ba3ed7eda6d0d53116f75b77b7cdf2c71e0"
+    },
+    {
+      "number": 5,
+      "title": "Precision Foundry",
+      "file": "05-precision-foundry.png",
+      "sha256": "79054179078e7a984a0fb067f378010731ced3ca7028736dc71d5942396b4704"
+    },
+    {
+      "number": 6,
+      "title": "Spectrum",
+      "file": "06-spectrum.png",
+      "sha256": "0aa862a4770847d318aad759d43863f7baaddb0593d802c6157632bb22a33f11"
+    }
+  ],
+  "refinements": [
+    {
+      "id": "A",
+      "title": "Jade + Steel",
+      "file": "refinements/a-jade-steel.png",
+      "sha256": "1e128811047f641bcafdce7ba8c1d0acabd58870871c322eb2557146aa2f0b7a",
+      "basis": [
+        "02-interlock.png",
+        "05-precision-foundry.png"
+      ]
+    },
+    {
+      "id": "B",
+      "title": "Graphite + Copper",
+      "file": "refinements/b-graphite-copper.png",
+      "sha256": "0717a01abe39eb57e90010b2515fded28abfbf86dec5547a9bc9d7cf91148646",
+      "basis": [
+        "02-interlock.png",
+        "05-precision-foundry.png"
+      ]
+    },
+    {
+      "id": "C",
+      "title": "Segmented top bar",
+      "file": "refinements/c-segmented-top-bar.png",
+      "sha256": "21cb11a7c77548679f9716686d3849c8cec4955362552b9336609823ee41016d",
+      "basis": [
+        "refinements/c-top-bar-reference.png"
+      ]
+    },
+    {
+      "id": "D",
+      "title": "Jade + Steel",
+      "file": "refinements/d-jade-steel-sft.png",
+      "sha256": "bfa04dd100b727b106aa4a4fa004ed0c0747d53975e4bb37cd2996b65d59d3b0",
+      "basis": [
+        "refinements/c-segmented-top-bar.png"
+      ]
+    },
+    {
+      "id": "E",
+      "title": "Copper + Steel",
+      "file": "refinements/e-copper-steel-sft.png",
+      "sha256": "34382b9a3cbf6a29b80cb5add4c3a229a8d78192814c0d8bc24455a65ffcb4bb",
+      "basis": [
+        "refinements/c-segmented-top-bar.png"
+      ]
+    },
+    {
+      "id": "F",
+      "title": "Brushed Steel",
+      "file": "refinements/f-brushed-steel-sft.png",
+      "sha256": "ce54494b0eb5ebeeb57440249e70cfd262f3101387214141e0bcc44b3b8d9362",
+      "basis": [
+        "refinements/c-segmented-top-bar.png"
+      ]
+    },
+    {
+      "id": "G",
+      "title": "Jade gradient — corrected F and T",
+      "file": "refinements/g-jade-gradient-ft.png",
+      "sha256": "c4ba0c7656cf488b148513f693b717434472ff38d4bb5052257e182e6d8ae955",
+      "basis": [
+        "refinements/g-jade-reference.png",
+        "refinements/c-segmented-top-bar.png"
+      ]
+    },
+    {
+      "id": "H",
+      "title": "Weathered jade + soft backdrop",
+      "file": "refinements/h-jade-patina-soft-background.png",
+      "sha256": "f3726dbd12fbcf8092959958812290202103022eb5b3016a6d3f326414b4d352",
+      "basis": [
+        "refinements/h-patina-reference.png"
+      ]
+    },
+    {
+      "id": "I",
+      "title": "Dark jade + SureForgeTech wordmark",
+      "file": "refinements/i-dark-jade-wordmark.png",
+      "sha256": "037a1dfbe9524dbae00631f7a9b8e29d3e2f6532130a5cfaea5583a294be9c60",
+      "basis": [
+        "refinements/h-jade-patina-soft-background.png",
+        "refinements/i-dark-jade-reference.png",
+        "refinements/i-wordmark-reference.png"
+      ]
+    },
+    {
+      "id": "J",
+      "title": "Balanced SFT + product family",
+      "file": "refinements/j-balanced-brand-board.png",
+      "sha256": "e63b7fa16d13718961b571aba76659fbec5ffe5b351f69a58ee400c5036f9ad5",
+      "basis": [
+        "refinements/i-dark-jade-wordmark.png",
+        "refinements/approved-product-icons.png"
+      ]
+    },
+    {
+      "id": "K",
+      "title": "Transparent master logo",
+      "file": "refinements/k-logo-transparent.png",
+      "sha256": "6059ddf13f573bbabddb12d0dff79661f56f3fb2f9e387cf577a10b58bc15b21",
+      "basis": [
+        "refinements/j-balanced-brand-board.png"
+      ]
+    }
+  ],
+  "selected_direction": "Dark jade and steel, patinated hero, transparent master logo, individual product icons.",
+  "supporting_assets": [
+    {
+      "file": "refinements/approved-product-icons.png",
+      "source": "User-approved original icon strip",
+      "sha256": "55ec4f72e8ea8d61cb175cafa83f75bcc863f1a9d2bc6b713d56dde7f9b9a948"
+    },
+    {
+      "file": "refinements/favicon/favicon-16.png",
+      "generator": "Native SVG design and raster exports",
+      "sha256": "519dd4875c35d188bc3664cd73b3236c4237d05aecee4e69ec66541f7475bf44"
+    },
+    {
+      "file": "refinements/favicon/favicon-180.png",
+      "generator": "Native SVG design and raster exports",
+      "sha256": "6a8ad42ca6efc4b79047f4961eddf20efef8d98e7ca6652813afecd2ec1fb3f2"
+    },
+    {
+      "file": "refinements/favicon/favicon-256.png",
+      "generator": "Native SVG design and raster exports",
+      "sha256": "0ab01d08a788cd7aa0761042e9287fe367eecdf181257e8f8590b66d840cc045"
+    },
+    {
+      "file": "refinements/favicon/favicon-32.png",
+      "generator": "Native SVG design and raster exports",
+      "sha256": "fc282c6e05a55be62bef74387574039bbb3dad8c8f401d48e8650a27d0128ac2"
+    },
+    {
+      "file": "refinements/favicon/favicon-48.png",
+      "generator": "Native SVG design and raster exports",
+      "sha256": "2b235a2cde2a6e9fd424a4c6d58b405d8d06be6251a1955513455984ef58948c"
+    },
+    {
+      "file": "refinements/favicon/favicon.ico",
+      "generator": "Native SVG design and raster exports",
+      "sha256": "48f6c30a13be2af056906f70dd18ae06a3671631f5a56194e8849b026d561a55"
+    },
+    {
+      "file": "refinements/favicon/favicon.svg",
+      "generator": "Native SVG design and raster exports",
+      "sha256": "efb9dcc4afe2930aaaa9c40db61941fb8a2d00a5608a33cb969f58f1b720c103"
+    }
+  ]
+}

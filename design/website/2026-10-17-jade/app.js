@@ -1,0 +1,54 @@
+const products = [
+  {id:'sureforge',name:'Agent',group:'build',icon:17,accent:'#9a6026',tint:'#f6ead7',kind:'AI coding-agent CLI',platform:'macOS · Linux',status:'Developer preview',availability:'Developer preview',summary:'Give coding agents a bounded task. Get checked, independently reviewed work back in your hands.',description:'A local command-line tool for controlled AI-assisted software development. Assign bounded tasks to coding agents, run validation, request independent review, and return results to a human. No hosted service is required.',note:'SureForge Agent does not merge code autonomously.',docs:'sureforge'},
+  {id:'studio',name:'Studio',group:'build',icon:112,accent:'#377e89',tint:'#dfedef',kind:'Multi-repository agent workstation',platform:'Desktop workstation',status:'Early development',availability:'Early development',summary:'A dedicated place for agent sessions, repository context, and the work moving between them.',description:'A standalone workstation for coordinating coding-agent sessions across multiple repositories. Keep context, execution history, audit trails, pause and resume, and work handoffs together.',note:'Optional SureForge Agent runtime integration is planned and has not shipped.',docs:'studio'},
+  {id:'policyforge',name:'Policy',group:'team',icon:209,accent:'#3a7862',tint:'#e1ede3',kind:'Security & compliance automation',platform:'Cloud · CLI · Containers',status:'Proprietary',availability:'Proprietary software',summary:'Bring security evidence, control evaluations, and assessment preparation into a clearer workflow.',description:'A security and compliance automation platform for cloud and AWS GovCloud. Aggregate evidence from existing security tools, evaluate controls, and prepare findings, system security plans, OSCAL exports, and RMF assessment packages.',note:'Deployment options include Docker, Kubernetes, and AWS ECS Fargate.',docs:'policyforge'},
+  {id:'trellisforge',name:'Trellis',group:'team',icon:306,accent:'#327e9c',tint:'#e2eff2',kind:'Jira hierarchy & planning',platform:'Jira Cloud',status:'Product info in progress',availability:'Product information in development',summary:'See the shape of your work. Organize Jira issues into editable hierarchies and useful planning views.',description:'An Atlassian Forge app for Jira Cloud with editable hierarchies, saved views, inline editing, planning timelines, charts, imports and exports, personal work views, and optional time and planning modules.',note:'Trellis respects individual Jira permissions.',docs:'trellisforge'},
+  {id:'bugnarrator',name:'Capture',group:'daily',icon:403,accent:'#a84f38',tint:'#f4e6df',kind:'Narrated software testing',platform:'macOS 14+',status:'Free · Apache-2.0',availability:'Free · Apache-2.0',summary:'Talk through a test. Turn the session into searchable transcripts, screenshots, and actionable bug reports.',description:'SureForge Capture (BugNarrator) is a local-first macOS menu bar app for narrated software testing. Create searchable transcripts and screenshot timelines, extract multiple bugs from a session, and export the results.',note:'Supports optional local transcription and bring-your-own AI providers.',docs:'bugnarrator'},
+  {id:'terminal-workspace',name:'Terminal',group:'daily',icon:501,accent:'#287866',tint:'#e0eee7',kind:'Native macOS SSH client',platform:'macOS',status:'Product info in progress',availability:'Product information in development',summary:'Keep hosts, SSH sessions, file transfers, and everyday commands together in a native Mac workspace.',description:'A native macOS SSH/SFTP client with host management, SSH keys, known-host verification, command snippets, file transfers, and port forwarding. A local-first vault design keeps workstation workflows close at hand.',note:'Includes signed and notarized distribution and a demo mode; see product documentation for release details.',docs:'terminal-workspace'},
+  {id:'sureforge-fm-data-api',name:'FM Data API',group:'daily',icon:599,accent:'#356f9b',tint:'#e4edf6',kind:'FileMaker tools for VS Code',platform:'Visual Studio Code',status:'Free · MIT',availability:'Free and open source · MIT',summary:'Query, inspect, and build with the FileMaker Data API, without leaving your editor.',description:'A VS Code extension for FileMaker developers with create, read, update, and delete operations, a query builder, schema management, batch operations, Layout Mode tools, connection profiles, and a Next.js starter for generated apps.',note:'Designed for FileMaker Data API development workflows.',docs:'sureforge-fm-data-api'},
+  {id:'sureforge-fm-alfred',name:'FM Snippets',group:'daily',icon:699,accent:'#7d579d',tint:'#eee5f5',kind:'Alfred productivity snippets',platform:'Alfred · macOS',status:'Free · MIT',availability:'Free · MIT',summary:'Keep useful FileMaker patterns a few keystrokes away. Less repetition, more time for the problem.',description:'A collection of FileMaker development snippets for Alfred on macOS, including short triggers such as ;fmlet, ;fmcase, ;fmjsonset, and ;fmsql.',note:'Requires Alfred Powerpack. An unofficial community tool; not affiliated with Claris or FileMaker.',docs:'sureforge-fm-snippets'},
+  {id:'flowforge',name:'Flow',group:'build',icon:799,accent:'#b06b31',tint:'#f6eadc',kind:'Multi-tenant application platform',platform:'Deployable platform',status:'In development',availability:'In development',summary:'A foundation for tenant-aware applications, from control and runtime planes to deployment management.',description:'A platform for building and running multi-tenant applications, with control and runtime planes, a tenant directory, application metadata, deployment management, and SSO support.',note:'AI mode and optional PostgreSQL persistence are part of the design. Durable audit logging and attachment storage remain in development.',docs:'flowforge'}
+];
+
+const grid = document.querySelector('#product-grid');
+const dialog = document.querySelector('#product-dialog');
+const escapeHTML = (value) => value.replace(/[&<>"']/g, (character) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
+grid.innerHTML = products.map(product => `<article class="product-card" data-group="${product.group}" style="--accent:${product.accent};--tint:${product.tint}" aria-labelledby="title-${product.id}">
+  <div class="product-card-main"><div class="card-top"><span class="app-icon" role="img" aria-label="${escapeHTML(product.name)} app icon" style="--icon-x:${product.icon}"></span><span class="product-status">${escapeHTML(product.status)}</span></div>
+  <p class="product-family">SUREFORGE</p><h3 id="title-${product.id}">${escapeHTML(product.name)}</h3><p class="product-kind">${escapeHTML(product.kind)}</p><p class="product-description">${escapeHTML(product.summary)}</p></div>
+  <div class="product-card-footer"><span class="product-platform">${escapeHTML(product.platform)}</span><button class="explore-product" data-product="${product.id}" aria-label="Explore SureForge ${escapeHTML(product.name)}">Explore <span aria-hidden="true">→</span></button></div>
+</article>`).join('');
+
+document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
+  const group = button.dataset.filter;
+  document.querySelectorAll('.filter').forEach(filter => { const active = filter === button; filter.classList.toggle('active', active); filter.setAttribute('aria-pressed', String(active)); });
+  let count = 0;
+  document.querySelectorAll('.product-card').forEach(card => { card.hidden = group !== 'all' && card.dataset.group !== group; if (!card.hidden) count++; });
+  document.querySelector('#result-count').textContent = `${count} product${count === 1 ? '' : 's'}`;
+}));
+
+document.querySelector('main').addEventListener('click', event => {
+  const button = event.target.closest('[data-product]');
+  if (!button) return;
+  const product = products.find(item => item.id === button.dataset.product);
+  if (!product) return;
+  dialog.querySelector('#detail-title').textContent = product.name;
+  dialog.querySelector('.detail-kind').textContent = product.kind;
+  dialog.querySelector('.detail-icon').style.setProperty('--icon-x', product.icon);
+  dialog.querySelector('.detail-status').textContent = product.status;
+  dialog.querySelector('.detail-description').textContent = product.description;
+  dialog.querySelector('.detail-platform').textContent = product.platform;
+  dialog.querySelector('.detail-availability').textContent = product.availability;
+  dialog.querySelector('.detail-note').textContent = product.note;
+  dialog.querySelector('.detail-docs').href = `https://sureforgetech.com/docs/${product.docs}/`;
+  dialog.querySelector('.detail-page').href = `https://sureforgetech.com/products/${product.id}/`;
+  dialog.showModal();
+});
+dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
+dialog.addEventListener('click', event => { if (event.target === dialog) { const bounds = dialog.getBoundingClientRect(); if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close(); } });
+
+const menuButton = document.querySelector('.menu-toggle');
+const menu = document.querySelector('#navigation-links');
+menuButton.addEventListener('click', () => { const open = menu.classList.toggle('open'); menuButton.setAttribute('aria-expanded', String(open)); });
+menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { menu.classList.remove('open'); menuButton.setAttribute('aria-expanded','false'); }));
+document.addEventListener('keydown', event => { if (event.key === 'Escape') { menu.classList.remove('open'); menuButton.setAttribute('aria-expanded','false'); } });
