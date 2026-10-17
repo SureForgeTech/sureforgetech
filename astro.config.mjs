@@ -17,14 +17,15 @@ export default defineConfig({
           { label: 'Security (draft)', link: '/docs/security-draft/' }
         ] },
         { label: 'Products', items: [
-          { label: 'SureForge', link: '/docs/sureforge/' },
+          { label: 'SureForge Agent', link: '/docs/sureforge/' },
           { label: 'SureForge Studio', link: '/docs/studio/' },
-          { label: 'PolicyForge', link: '/docs/policyforge/' },
-          { label: 'TrellisForge', link: '/docs/trellisforge/' },
-          { label: 'BugNarrator', link: '/docs/bugnarrator/' },
-          { label: 'Terminal Workspace', link: '/docs/terminal-workspace/' },
-          { label: 'SureForge FM', link: '/docs/sureforge-fm/' },
-          { label: 'FlowForge', link: '/docs/flowforge/' }
+          { label: 'SureForge Policy', link: '/docs/policyforge/' },
+          { label: 'SureForge Trellis', link: '/docs/trellisforge/' },
+          { label: 'SureForge Capture', link: '/docs/bugnarrator/' },
+          { label: 'SureForge Terminal', link: '/docs/terminal-workspace/' },
+          { label: 'SureForge FM Data API', link: '/docs/sureforge-fm-data-api/' },
+          { label: 'SureForge FM Snippets', link: '/docs/sureforge-fm-snippets/' },
+          { label: 'SureForge Flow', link: '/docs/flowforge/' }
         ] }
       ]
     })

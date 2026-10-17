@@ -14,15 +14,15 @@ SureForgeTech builds practical software for the people who make, ship, secure, a
 
 | Product | What it does | Current status |
 | --- | --- | --- |
-| [SureForge](https://sureforgetech.com/products/sureforge/) | Local CLI for bounded AI-assisted development, validation, and independent review. A human reviews results; it never merges code autonomously. | Developer preview · macOS and Linux |
-| [SureForge Studio](https://sureforgetech.com/products/studio/) | Standalone workstation for coordinating coding-agent sessions, execution, audit trails, pause/resume, and handoff across repositories. | Early development |
-| [PolicyForge / SureForge Policy](https://sureforgetech.com/products/policyforge/) | Proprietary cloud compliance automation that aggregates existing security-tool evidence and prepares control findings and assessment artifacts. | Proprietary |
-| [TrellisForge / SureForge Trellis](https://sureforgetech.com/products/trellisforge/) | Jira Cloud app for editable work hierarchies, planning, saved views, and reporting, respecting individual Jira permissions. | Product information in development |
-| [BugNarrator / SureForge Capture](https://sureforgetech.com/products/bugnarrator/) | Local-first macOS narrated-testing app with searchable transcripts, screenshot timelines, and bug extraction. | Apache-2.0 · Free · macOS 14+ |
-| [Terminal Workspace / SureForge Terminal](https://sureforgetech.com/products/terminal-workspace/) | Native macOS SSH and SFTP workspace with key and host trust management, snippets, and port forwarding. | Product information in development |
-| [SureForge FM — FileMaker Data API Tools](https://sureforgetech.com/products/sureforge-fm-data-api/) | MIT-licensed VS Code extension for FileMaker Data API operations, schema, batch work, Layout Mode, and generated-app starters. | MIT · Free and open source |
-| [SureForge FM — Alfred Snippets](https://sureforgetech.com/products/sureforge-fm-alfred/) | MIT-licensed Alfred snippets for FileMaker development on macOS. Requires Alfred Powerpack. | MIT · Free |
-| [FlowForge / SureForge Flow](https://sureforgetech.com/products/flowforge/) | Multi-tenant application platform with control/runtime planes, tenant metadata, deployment management, and SSO support. | In development |
+| [SureForge Agent](https://sureforgetech.com/products/sureforge/) | AI coding-agent CLI for bounded development tasks, validation, and independent review. A human reviews results; it never merges code autonomously. | Developer preview · macOS and Linux |
+| [SureForge Studio](https://sureforgetech.com/products/studio/) | Multi-repository agent workstation for coordinating coding-agent sessions, execution, audit trails, pause/resume, and handoff. | Early development |
+| [SureForge Policy](https://sureforgetech.com/products/policyforge/) | Security and compliance automation for cloud environments that aggregates existing security-tool evidence and prepares control findings and assessment artifacts. | Proprietary |
+| [SureForge Trellis](https://sureforgetech.com/products/trellisforge/) | Jira Cloud app for editable work hierarchies, planning, saved views, and reporting, respecting individual Jira permissions. | Product information in development |
+| [SureForge Capture (BugNarrator)](https://sureforgetech.com/products/bugnarrator/) | Local-first macOS narrated-testing app with searchable transcripts, screenshot timelines, and bug extraction. | Apache-2.0 · Free · macOS 14+ |
+| [SureForge Terminal](https://sureforgetech.com/products/terminal-workspace/) | Native macOS SSH client with SFTP, key and host trust management, snippets, and port forwarding. | Product information in development |
+| [SureForge FM Data API](https://sureforgetech.com/products/sureforge-fm-data-api/) | MIT-licensed VS Code extension for FileMaker Data API operations, schema, batch work, Layout Mode, and generated-app starters. | MIT · Free and open source |
+| [SureForge FM Snippets](https://sureforgetech.com/products/sureforge-fm-alfred/) | MIT-licensed Alfred snippets for FileMaker development on macOS. Requires Alfred Powerpack. | MIT · Free |
+| [SureForge Flow](https://sureforgetech.com/products/flowforge/) | Multi-tenant application platform with control/runtime planes, tenant metadata, deployment management, and SSO support. | In development |
 
 Product names may evolve. References to third-party products identify compatibility only and do not imply affiliation. Product capabilities and availability are described according to their current maturity.
 
