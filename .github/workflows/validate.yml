@@ -1,8 +1,9 @@
-name: Validate site
+name: Validate and deploy site
 
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -10,6 +11,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -20,3 +22,70 @@ jobs:
           version: 10.12.1
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+      - name: Record source revision
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: printf '{"commit":"%s"}\n' "$GITHUB_SHA" > dist/deployment.json
+      - name: Save production artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: production-site
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy:
+    name: Deploy production
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      deployments: write
+    environment:
+      name: production
+      url: https://sureforgetech.com
+    concurrency:
+      group: cloudflare-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: production-site
+          path: dist/
+      - name: Publish validated site to Cloudflare Pages
+        id: publish
+        uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          wranglerVersion: '4.76.0'
+          packageManager: npm
+          command: pages deploy dist --project-name=sureforgetech --branch=main --commit-hash=${{ github.sha }}
+      - name: Verify published revision
+        env:
+          DEPLOYMENT_URL: ${{ steps.publish.outputs.deployment-url }}
+        run: |
+          set -euo pipefail
+          test -n "$DEPLOYMENT_URL"
+          for origin in "$DEPLOYMENT_URL" "https://sureforgetech.com"; do
+            verified=false
+            for attempt in {1..12}; do
+              if curl --fail --silent --show-error --max-time 15 \
+                "${origin}/deployment.json?revision=${GITHUB_SHA}" \
+                | jq --exit-status --arg revision "$GITHUB_SHA" '.commit == $revision' > /dev/null; then
+                echo "Verified ${GITHUB_SHA} at ${origin}"
+                verified=true
+                break
+              fi
+              echo "Waiting for ${origin} to serve the new revision (attempt ${attempt}/12)"
+              sleep 5
+            done
+            test "$verified" = true
+          done

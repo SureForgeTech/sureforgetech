@@ -45,7 +45,7 @@ Build the static site with:
 pnpm build
 ```
 
-The generated site is in `dist/`. The Cloudflare Pages project is `sureforgetech`; production uses `https://sureforgetech.com`. See [deployment instructions](docs/deployment.md) for publishing and rollback. Only the generated `dist/` files are uploaded; design explorations and source files are not part of the deployed artifact.
+The generated site is in `dist/`. Pushes to `main` automatically build, validate, and publish to the Cloudflare Pages project `sureforgetech` at `https://sureforgetech.com`. Pull requests run validation only. See [deployment instructions](docs/deployment.md) for publishing and rollback. Only the generated `dist/` files are uploaded; design explorations and source files are not part of the deployed artifact.
 
 ## Contributing
 
