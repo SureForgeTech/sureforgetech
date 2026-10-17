@@ -30,6 +30,8 @@ Product names may evolve. References to third-party products identify compatibil
 
 This repository contains the corporate website and product portfolio. It is a lightweight Astro site with Astro Starlight documentation, deployed as a static site on Cloudflare Pages. The homepage uses the selected jade and steel identity, nine distinct product panels, purpose-based product discovery, and accessible product details. Product pages and documentation will grow as release information is ready.
 
+[Project memory](docs/project-memory.md) records the selected branding, product names, deployment setup, launch learnings, and open items for future work.
+
 ### Local development
 
 Requires Node.js 22 or newer and pnpm 10.12.1.
