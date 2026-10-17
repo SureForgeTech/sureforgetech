@@ -65,7 +65,7 @@ Compare the authoritative server, a public resolver, and the system resolver bef
 ## Open items and cautions
 
 - `sureforge.ai` is not configured. The live website now links to the existing SureForge Agent product page instead. Decide the domain's intended role before setting it up, and verify it before restoring public links.
-- `ORG_PROFILE_README.md` is a repository copy/template. Editing it does not automatically update the separate organization's `.github/profile/README.md`; verify that published profile separately for stale links and product names.
+- The organization profile in `SureForgeTech/.github` was refreshed on 2026-10-17 with the approved logo and app-icon artwork, all nine current product names, maturity information, and corporate-site links. `ORG_PROFILE_README.md` is the matching repository copy; changes here still need to be published separately to the organization profile. Keep both copies synchronized and omit links to the unconfigured product domain.
 - Product pages, documentation, and support information are an initial public foundation. Expand them with verified release information as products mature.
 - Do not modify or transfer repositories under `sure-forge` as part of this corporate-site work.
 
