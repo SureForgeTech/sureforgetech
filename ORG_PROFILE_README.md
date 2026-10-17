@@ -1,28 +1,34 @@
-# SureForgeTech
+<p>
+  <a href="https://sureforgetech.com"><img src="https://raw.githubusercontent.com/SureForgeTech/.github/main/profile/assets/sureforgetech-jade-steel.png" alt="SureForgeTech — interlocking SFT logo in dark patinated jade and brushed steel" width="520"></a>
+</p>
 
-### Tools for software builders.
+# Tools for people who build.
 
-SureForgeTech builds practical software for the people who make, ship, secure, and operate software. The **SureForge** product family spans developer utilities, coding-agent tools, compliance automation, planning tools, and application platforms—from native macOS apps and command-line tools to editor extensions, Jira apps, and deployable server software.
+SureForgeTech builds practical software for individual makers and engineering teams—from your first AI-assisted project to your team's next release. The **SureForge** family includes native apps, developer tools, and team platforms for building, planning, securing, and running software.
 
-**[Visit sureforgetech.com](https://sureforgetech.com) · [Explore the products](https://sureforgetech.com/#products) · [Documentation](https://sureforgetech.com/docs/) · [Support](https://sureforgetech.com/support/)**
+**[Explore the products](https://sureforgetech.com/#products) · [Documentation](https://sureforgetech.com/docs/) · [Support](https://sureforgetech.com/support/)**
 
-## The product family
+<p>
+  <img src="https://raw.githubusercontent.com/SureForgeTech/.github/main/profile/assets/sureforge-product-family.png" alt="The SureForge app family: Agent, Studio, Policy, Trellis, Capture, Terminal, FM Data API, FM Snippets, and Flow" width="897">
+</p>
 
-| Product | Description | Status |
+## The SureForge family
+
+| Product | What it helps you do | Availability |
 | --- | --- | --- |
-| **[SureForge Agent](https://sureforgetech.com/products/sureforge/)** | AI coding-agent CLI for bounded development tasks. Runs validation and independent review, then returns results to a person. It never merges code autonomously and needs no hosted service. | Developer preview · macOS and Linux |
-| **[SureForge Studio](https://sureforgetech.com/products/studio/)** | Multi-repository agent workstation for coordinating coding-agent sessions, context, execution, audit trails, pause/resume, and handoff. | Early development |
-| **[SureForge Policy](https://sureforgetech.com/products/policyforge/)** | Security and compliance automation for cloud environments that aggregates evidence from existing security tools and prepares control findings and assessment artifacts. | Proprietary |
-| **[SureForge Trellis](https://sureforgetech.com/products/trellisforge/)** | Jira Cloud app for editable work hierarchies, planning, saved views, and reporting; respects individual Jira permissions. | Product information in development |
-| **[SureForge Capture (BugNarrator)](https://sureforgetech.com/products/bugnarrator/)** | Local-first macOS narrated-testing app with searchable transcripts, screenshot timeline markers, and bug extraction. | Apache-2.0 · Free · macOS 14+ |
-| **[SureForge Terminal](https://sureforgetech.com/products/terminal-workspace/)** | Native macOS SSH client with SFTP, key and host trust management, snippets, and port forwarding. | Product information in development |
-| **[SureForge FM Data API](https://sureforgetech.com/products/sureforge-fm-data-api/)** | MIT-licensed VS Code extension for FileMaker Data API operations, schema, batch work, Layout Mode, and generated-app starters. | MIT · Free and open source |
-| **[SureForge FM Snippets](https://sureforgetech.com/products/sureforge-fm-alfred/)** | MIT-licensed Alfred snippets for FileMaker development on macOS. Requires Alfred Powerpack. | MIT · Free |
-| **[SureForge Flow](https://sureforgetech.com/products/flowforge/)** | Multi-tenant application platform with control/runtime planes, tenant metadata, deployment management, and SSO support. Some capabilities remain in development. | In development |
+| **[SureForge Agent](https://sureforgetech.com/products/sureforge/)** | Assign bounded coding tasks, run validation, and request independent review from an AI coding-agent CLI. People remain in control; Agent never merges code autonomously. | Developer preview · macOS and Linux |
+| **[SureForge Studio](https://sureforgetech.com/products/studio/)** | Coordinate coding-agent sessions, context, history, and handoffs across multiple repositories. | Early development |
+| **[SureForge Policy](https://sureforgetech.com/products/policyforge/)** | Organize security evidence, evaluate controls, and prepare compliance assessment artifacts. | Proprietary |
+| **[SureForge Trellis](https://sureforgetech.com/products/trellisforge/)** | Organize Jira issues into editable hierarchies, planning views, and reports while respecting Jira permissions. | Product information in development |
+| **[SureForge Capture (BugNarrator)](https://sureforgetech.com/products/bugnarrator/)** | Narrate macOS testing sessions and turn transcripts, screenshots, and observations into actionable bug reports. | Free · Apache-2.0 · macOS 14+ |
+| **[SureForge Terminal](https://sureforgetech.com/products/terminal-workspace/)** | Manage SSH sessions, SFTP transfers, hosts, keys, snippets, and port forwarding in a native macOS client. | Product information in development |
+| **[SureForge FM Data API](https://sureforgetech.com/products/sureforge-fm-data-api/)** | Query, inspect, and build with the FileMaker Data API from Visual Studio Code. | Free and open source · MIT |
+| **[SureForge FM Snippets](https://sureforgetech.com/products/sureforge-fm-alfred/)** | Keep useful FileMaker development patterns a few keystrokes away with Alfred snippets. Requires Alfred Powerpack. | Free · MIT · macOS |
+| **[SureForge Flow](https://sureforgetech.com/products/flowforge/)** | Build and run multi-tenant applications with control/runtime planes, deployment management, and SSO support. | In development |
 
-Product names and capabilities may evolve. Third-party names identify compatibility only and do not imply affiliation with Apple, Atlassian, Claris, or other vendors. This profile makes no claims about corporate formation or trademark registration.
+Availability and maturity vary by product. Planned integrations and capabilities remain identified as planned in the product documentation. Third-party names describe compatibility and do not imply affiliation with Apple, Atlassian, Claris, or other vendors.
 
-## Repositories
+## Around the organization
 
-- [Corporate website and product portfolio](https://github.com/SureForgeTech/sureforgetech)
-- [Organization profile](https://github.com/SureForgeTech/.github)
+- **[Corporate website and product portfolio](https://github.com/SureForgeTech/sureforgetech)** — the public website, product catalog, documentation, and approved branding.
+- **[Visit SureForgeTech.com](https://sureforgetech.com)** — find the tool for your next project or everyday workflow.
