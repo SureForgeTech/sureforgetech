@@ -3,7 +3,7 @@ title: Trellis privacy statement
 description: What SureForge Trellis, a Jira Cloud app from SureForgeTech, saves about people and how it is removed.
 ---
 
-**Last updated:** 4 November 2026
+**Last updated:** [date this page is published]
 
 **Who we are:** SureForgeTech, the publisher of Trellis, a Jira Cloud app. **Contact:** trellis-support@sureforgetech.com.
 
@@ -11,12 +11,11 @@ description: What SureForge Trellis, a Jira Cloud app from SureForgeTech, saves 
 
 Trellis runs inside your Atlassian Jira site. It reads Jira work items and time (worklogs) as the person using it, and it saves what it needs in the app's own storage that Atlassian hosts for your site (Forge storage). A few things are done by the app itself rather than by a person, for example the approval note it writes on the worklogs of an approved week (described below) and its scheduled daily jobs.
 
-- **Nothing leaves Atlassian.** Trellis does not send data to any server of ours or of any third party. It declares no external network access.
-- **No data is sent to us.** Trellis sends no data to any server of ours. Support is given from information a customer chooses to copy and send us. The app's "Report a problem" text is scrubbed of emails, account ids and tokens before it is shown, and you should read it before sending it.
+- **Nothing is sent to us or to anyone else.** Trellis does not send data to any server of ours or of any third party, and it declares no external network access. Support is given from information a customer chooses to copy and send us. The app's "Report a problem" text is scrubbed of emails, account ids and tokens before it is shown, and you should read it before sending it.
 
 ## What is saved about people
 
-Trellis saves, for the people who use the features below, an Atlassian account id and in some records a display name. It does not save passwords or email addresses. It does not copy the text of work items, with three exceptions: a saved baseline keeps a snapshot of the rows it was saved from, which includes issue summaries and other issue fields; an optional sweep audit entry can name an issue; and, unless switched off, the browser keeps the rows of the last outline you opened (summaries, assignees, statuses and other shown fields) on your device for up to 24 hours so the page opens faster.
+Trellis saves, for the people who use the features below, an Atlassian account id and in some records a display name. The lists below are a summary of the main kinds of record, not every record: others, such as change histories, access lists, approver scopes, the daily sweep log, short links and the bill-rate card, also hold account ids or names, and a timekeeper record can hold an employee number, pay code or cost centre next to a name. Write to the contact above for the full list. It does not save passwords or email addresses. It does not copy the text of work items, with three exceptions: a saved baseline keeps a snapshot of the rows it was saved from, which includes issue summaries and other issue fields; an optional sweep audit entry can name an issue; and, unless switched off, the browser keeps the rows of the last outline you opened (summaries, assignees, statuses and other shown fields) on your device so the page opens faster. The copy is not used after 24 hours, but it stays in the browser until it is replaced or the browser data is cleared.
 
 - **Saved choices:** the last outline opened, saved views, chart choices, reasons for My work, board setups, saved bulk recipes.
 - **Timesheets (when the module is on):** a running timer, stopped timers waiting to be logged, billable marks and categories on entries, the state of each person's period (not sent, sent, approved, returned), a snapshot of the worklogs when a period is sent, approval and return decisions with who made them, payroll export records, and an audit trail of those steps.
@@ -27,7 +26,7 @@ Trellis saves, for the people who use the features below, an Atlassian account i
 
 ## Exports
 
-A Jira administrator can export every record Trellis keeps for the site in one job (a set of ZIP files of CSV sheets with a README). The file holds personal data without anonymisation and should be handled as personal data. While an export is unfinished, its working copy sits in the app's storage; it is removed when the last file is downloaded, and an abandoned one is removed after a day. A downloaded file is the administrator's to protect; we cannot erase it.
+A Jira administrator can export every record Trellis keeps for the site in one job (a set of ZIP files of CSV sheets with a README). The file holds personal data without anonymisation and should be handled as personal data. While an export is unfinished, its working copy sits in the app's storage; it is removed when the last file is downloaded, and an abandoned one is removed by the daily clean-up once it is a day old. A downloaded file is the administrator's to protect; we cannot erase it.
 
 ## How long it is kept and how it is removed
 
