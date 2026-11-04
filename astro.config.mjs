@@ -12,6 +12,7 @@ export default defineConfig({
       sidebar: [
         { label: 'Welcome', link: '/docs/' },
         { label: 'Legal and security', items: [
+          { label: 'Trellis privacy', link: '/docs/trellis-privacy/' },
           { label: 'Privacy (draft)', link: '/docs/privacy-draft/' },
           { label: 'Terms (draft)', link: '/docs/terms-draft/' },
           { label: 'Security (draft)', link: '/docs/security-draft/' }
