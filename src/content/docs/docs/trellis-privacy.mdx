@@ -1,0 +1,47 @@
+---
+title: Trellis privacy statement
+description: What SureForge Trellis, a Jira Cloud app from SureForgeTech, saves about people and how it is removed.
+---
+
+**Last updated:** 3 November 2026
+
+**Who we are:** SureForgeTech, the publisher of Trellis, a Jira Cloud app. **Contact:** trellis-support@sureforgetech.com.
+
+## What Trellis does with your data
+
+Trellis runs inside your Atlassian Jira site. It reads Jira work items and time (worklogs) as the person using it, and it saves what it needs in the app's own storage that Atlassian hosts for your site (Forge storage). A few things are done by the app itself rather than by a person, for example the approval note it writes on the worklogs of an approved week (described below) and its scheduled daily jobs.
+
+- **Nothing is sent to us or to anyone else.** Trellis does not send data to any server of ours or of any third party, and it declares no external network access. Support is given from information a customer chooses to copy and send us. The app's "Report a problem" text is scrubbed of emails, account ids and tokens before it is shown, and you should read it before sending it.
+
+## What is saved about people
+
+Trellis saves, for the people who use the features below, an Atlassian account id and in some records a display name. The lists below are a summary of the main kinds of record, not every record: others, such as change histories, access lists, approver scopes, the daily sweep log, short links and the bill-rate card, also hold account ids or names, and a timekeeper record can hold an employee number, pay code or cost centre next to a name. Write to the contact above for the full list. It does not save passwords or email addresses. It does not copy the text of work items, with three exceptions: a saved baseline keeps a snapshot of the rows it was saved from, which includes issue summaries and other issue fields; an optional sweep audit entry can name an issue; and, unless switched off, the browser keeps the rows of the last outline you opened (summaries, assignees, statuses and other shown fields) on your device so the page opens faster. The copy is not used after 24 hours, but it stays in the browser until it is replaced or the browser data is cleared.
+
+- **Saved choices:** the last outline opened, saved views, chart choices, reasons for My work, board setups, saved bulk recipes.
+- **Timesheets (when the module is on):** a running timer, stopped timers waiting to be logged, billable marks and categories on entries, the state of each person's period (not sent, sent, approved, returned), a snapshot of the worklogs when a period is sent, approval and return decisions with who made them, payroll export records, and an audit trail of those steps.
+- **On the worklogs themselves (in Jira, not in the app's storage):** the day a worklog was written for, and, for an approved week, an approval note with the period, the time of the decision and the approver's account id. Jira holds these with the worklog and deletes them with it.
+- **Roster and cost (when those modules are on):** working hours, days and time off, which team a person is on, hourly rates and roles.
+- **Teams of people** that a manager groups for the team timesheet.
+
+
+## Exports
+
+A Jira administrator can export every record Trellis keeps for the site in one job (a set of ZIP files of CSV sheets with a README). The file holds personal data without anonymisation and should be handled as personal data. While an export is unfinished, its working copy sits in the app's storage; it is removed when the last file is downloaded, and an abandoned one is removed by the daily clean-up once it is a day old. A downloaded file is the administrator's to protect; we cannot erase it.
+
+## How long it is kept and how it is removed
+
+- Choices and working records are kept until the person removes them, their Atlassian account is closed (the records that name them are erased when the account comes due in the daily cycle, with exceptions: audit events can be kept with the name removed for a retention period the customer sets, recorded exports keep the ids of the people in them, and records the app wrote into Jira stay in Jira; no deadline is promised), or the customer uninstalls Trellis. There is no administrator action that erases one person's choices or timesheet records before that.
+- A person's records are meant to be erased when their Atlassian account is closed: Trellis runs a scheduled job that finds closed accounts and removes the records that name them, and asks again if some could not be reached.
+- A person's timesheet approval records, versions and snapshots are deleted when their account is closed and the daily cycle reaches it (an erase done in steps can be part done and is retried; no deadline is promised), and their name is removed from weeks they decided for others (shown as "Former user"). The audit trail of what was done to their weeks is deleted with them by default; a site can choose to keep a closed account's own audit events, with the name removed, for a number of days it sets. Uninstalling Trellis removes the app from the site; Atlassian decides when the app's stored data is deleted afterwards, and that timing is not documented, so this page makes no promise about it. Time records (worklogs) stay in Jira. A customer that needs approval history for its own records should export it before an account is closed.
+
+## Your rights
+
+Your Jira administrator is your first contact: they decide who uses Trellis, and they can export everything Trellis keeps for the site. Trellis has no administrator action that erases one person's records; they are erased when the account is closed, subject to the exceptions listed above (records held in Jira, recorded payroll exports, any audit retention the site sets, and older financial change-history entries, written before 2026-10-17, that may still hold a former display name), or when Atlassian deletes the app's data after an uninstall, which is not documented to happen at any particular time. You can also write to us at the contact above. Trellis sends no data to us, so we will tell you and your administrator what Trellis can and cannot remove; we act on a customer's instruction as a processor of the customer's data.
+
+## Security
+
+Trellis's server functions check on the server who is asking and the roles the customer's administrators set. Screens that read Jira run in the browser as the person using them, and Jira's own permissions are the boundary there; the app keeps an audit trail of timesheet decisions; the code is tested and reviewed. Some records are not removed with an account because they live in Jira, not in Trellis's storage: a check-in on an objective or a dependency agreement that the person wrote, and an approval note on another person's worklog that the person made, stay on their Jira issue or worklog until that issue or worklog is deleted. A recorded payroll export keeps the account ids and hours of the people who were in it. To report a vulnerability, write to trellis-support@sureforgetech.com.
+
+## Changes
+
+We will update this page when the app's data handling changes and note the date at the top.
