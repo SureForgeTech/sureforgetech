@@ -61,7 +61,7 @@ Each connector needs its own configuration, credentials and review in your envir
 
 ### SureForge Agent run records
 
-SureForge Policy can import the run report and delivery journal that a SureForge Agent run produces, as evidence about how a code change was made: whether it had a work contract, passed validation, was independently reviewed and was delivered for a human to merge. These claims map to a small set of NIST SP 800-218 (SSDF) tasks as supporting evidence only.
+SureForge Policy can import the run report and delivery journal that a SureForge Agent run produces, as evidence about how a code change was made: whether it had a work contract, passed validation, was independently reviewed and was delivered for a human to merge. These claims map to a small set of NIST SP 800-218 (SSDF) tasks. Imported records count toward readiness like other evidence and are labeled as operator diagnostics.
 
 <Aside type="note">
 These records are recorded as operator diagnostics, not signed attestations. SureForge Policy checks that the report and journal agree with each other, but it does not authenticate who wrote them. Every imported row carries that label.
