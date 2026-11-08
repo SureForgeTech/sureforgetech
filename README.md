@@ -15,9 +15,9 @@ SureForgeTech builds practical software for the people who make, ship, secure, a
 | Product | What it does | Current status |
 | --- | --- | --- |
 | [SureForge Agent](https://sureforgetech.com/products/sureforge/) | AI coding-agent CLI for bounded development tasks, validation, and independent review. A human reviews results; it never merges code autonomously. | Developer preview · macOS and Linux |
-| [SureForge Studio](https://sureforgetech.com/products/studio/) | Multi-repository agent workstation for coordinating coding-agent sessions, execution, audit trails, pause/resume, and handoff. | Early development |
+| [SureForge Studio](https://sureforgetech.com/products/studio/) | Multi-repository agent workstation for coordinating coding-agent sessions, execution, audit trails, stop/resume, and exportable work records. | Early development |
 | [SureForge Policy](https://sureforgetech.com/products/policyforge/) | Security and compliance automation for cloud environments that aggregates existing security-tool evidence and prepares control findings and assessment artifacts. | Proprietary |
-| [SureForge Trellis](https://sureforgetech.com/products/trellisforge/) | Jira Cloud app for editable work hierarchies, planning, saved views, and reporting, respecting individual Jira permissions. | Product information in development |
+| [SureForge Trellis](https://sureforgetech.com/products/trellisforge/) | Jira Cloud app for editable work hierarchies, planning, saved views, and reporting, working through each person's own Jira permissions. | Product information in development |
 | [SureForge Capture (BugNarrator)](https://sureforgetech.com/products/bugnarrator/) | Local-first macOS narrated-testing app with searchable transcripts, screenshot timelines, and bug extraction. | Apache-2.0 · Free · macOS 14+ |
 | [SureForge Terminal](https://sureforgetech.com/products/terminal-workspace/) | Native macOS SSH client with SFTP, key and host trust management, snippets, and port forwarding. | Product information in development |
 | [SureForge FM Data API](https://sureforgetech.com/products/sureforge-fm-data-api/) | MIT-licensed VS Code extension for FileMaker Data API operations, schema, batch work, Layout Mode, and generated-app starters. | MIT · Free and open source |
