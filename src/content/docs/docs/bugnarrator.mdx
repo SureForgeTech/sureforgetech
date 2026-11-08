@@ -1,6 +1,200 @@
 ---
 title: SureForge Capture (BugNarrator)
-description: Narrated software testing for macOS.
+description: User guide for SureForge Capture (BugNarrator), a macOS menu bar app for narrated software testing sessions.
 ---
 
-SureForge Capture (BugNarrator) is a local-first macOS menu bar app for narrated testing, with searchable transcripts, screenshot timeline markers, and bug extraction from a recording session. Optional local transcription and bring-your-own AI provider support are available features. The software is Apache-2.0 licensed and supports macOS 14 or newer.
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+SureForge Capture (BugNarrator) is a macOS menu bar app for narrated software testing. You talk through a testing session while you keep clicking through the app you are reviewing. BugNarrator records your narration, lets you capture screenshots as evidence, and afterwards gives you a searchable transcript, a review summary and draft issues you can review and export.
+
+It is built for developers, testers and product owners who would rather keep working than stop to type notes. The workflow is:
+
+`record → review → refine → export`
+
+BugNarrator is free to use and licensed under the Apache License 2.0.
+
+## What you need
+
+- A Mac running macOS 14 or later.
+- Your own AI provider for transcription, summaries and issue extraction. BugNarrator does not include built-in AI access or credits (see [Choose an AI provider](#choose-an-ai-provider)).
+- Microphone permission, to record.
+- Screen Recording permission, only if you want screenshots.
+
+## Install
+
+<Steps>
+
+1. Go to the [BugNarrator Releases page](https://github.com/ABD-Enterprises/bug-narrator/releases/latest) on GitHub and download the latest macOS disk image (DMG).
+2. Open the DMG.
+3. Drag `BugNarrator.app` into `Applications`.
+4. Launch BugNarrator from `Applications` and check that its icon appears in the menu bar.
+
+</Steps>
+
+Releases are signed and notarized by Apple, so macOS should not warn about an "unidentified developer". You will still see the usual one-time confirmation for an app downloaded from the internet. If macOS does report an unidentified developer, do not bypass the warning: check the download against the checksum published on the release page and [report it](https://github.com/ABD-Enterprises/bug-narrator/issues/new).
+
+BugNarrator runs as a single copy. If you launch it again while it is running, the existing copy comes forward and the second one exits.
+
+## First run
+
+<Steps>
+
+1. Click the BugNarrator menu bar icon and open `Settings`.
+2. Choose an AI provider.
+3. Enter the API key or base URL that provider needs. Leave the key blank for `Local (Parakeet)`.
+4. Optionally click `Validate Key` or `Validate Connection` to check the setup.
+5. Optionally assign global hotkeys for `Start Recording`, `Stop Recording` and `Capture Screenshot`. They start as `Not Set`.
+
+</Steps>
+
+### Permissions
+
+- **Microphone** is requested the first time you start a recording. BugNarrator checks the microphone before recording begins and tells you whether access is not yet granted, denied, restricted (for example by device management or parental controls), or whether no audio input is available.
+- **Screen Recording** is requested the first time you capture a screenshot. It is only needed for screenshots; if you deny it, your recording continues without them.
+- **Accessibility** permission is not needed. BugNarrator never types into other apps.
+
+If a permission is denied, use the `Open Microphone Settings` or `Open Screen Recording Settings` button in the menu bar window to jump to the right place in System Settings.
+
+### Choose an AI provider
+
+| Provider | What it is for |
+| --- | --- |
+| `OpenAI` | The default hosted provider. Needs your own OpenAI API key. |
+| `OpenAI-Compatible` | Enterprise gateways or hosted providers with OpenAI-compatible transcription and chat endpoints. |
+| `Local-Compatible` | Local or self-hosted OpenAI-compatible endpoints, such as LM Studio or Ollama. |
+| `Local (Parakeet)` | Transcription on your Mac through a local server. No API key, and audio is not uploaded. |
+
+Using a hosted provider may cost money on your provider account. Your provider credential is stored in the macOS Keychain when available.
+
+`Local (Parakeet)` handles transcription only. The review summary and issue extraction still need an OpenAI-compatible chat provider.
+
+#### Set up local transcription (Parakeet)
+
+On a new install, `Local (Parakeet)` is the default transcription provider. It needs a local server, which is a separate signed and notarized download for Apple Silicon Macs and needs no Python or source code. BugNarrator can download, install, start, stop and remove this server for you from `Settings > AI Engines`. To set it up by hand instead:
+
+<Steps>
+
+1. From the [latest release](https://github.com/ABD-Enterprises/bug-narrator/releases/latest), download `bugnarrator-transcription-macos-arm64.dmg`. You can check it against the published checksum.
+2. Open the disk image and copy `bugnarrator-transcription` to a local folder.
+3. Run it in Terminal and leave that window open while you record:
+
+   ```bash
+   ./bugnarrator-transcription --preload
+   ```
+
+   The first run downloads the speech model.
+4. In BugNarrator, choose `Local (Parakeet)`. No API key is needed.
+
+</Steps>
+
+Long recordings are transcribed in chunks on your Mac and can take several minutes.
+
+## Your first session
+
+<Steps>
+
+1. From the menu bar, click `Show Recording Controls`. This window stays open until you close it, so you can reuse it for several sessions.
+2. Click `Start Recording`, then keep working in the app you are testing. BugNarrator records in the background while you switch apps, click and type.
+3. When something important or broken appears, click `Capture Screenshot`, drag to select the area you want, and release. Press `Esc` to cancel without stopping the recording.
+4. Click `Stop Recording`. BugNarrator sends the recording to your provider for transcription.
+5. When the transcript is ready, the session library opens so you can review the transcript, screenshots, summary and extracted issues.
+
+</Steps>
+
+If your provider setup is missing or rejected when you stop, the session is kept in the library. Fix the setup in `Settings`, then open the session and retry transcription.
+
+### Tips for useful narration
+
+Short, factual narration gives better transcripts and better draft issues.
+
+- Start with context: the app version, macOS version and how it was installed.
+- Say what you are testing, then narrate one action at a time ("I'm clicking Start Recording now").
+- Say what you expected, and what actually happened, as soon as something goes wrong.
+- Take a screenshot when something looks wrong, and say why.
+- End with a one- or two-sentence summary of the outcome.
+- Avoid side conversations, vague remarks like "it broke", and several issues in one sentence.
+
+The full [Tester Narration Guide](https://github.com/ABD-Enterprises/bug-narrator/blob/main/docs/UserGuide.md#tester-narration-guide) has a word-for-word example.
+
+## Main features
+
+- **Screenshots and timeline markers.** Screenshots are taken only when you ask. Each one is attached to the session, adds a marker to the timeline at that moment, and appears in the `Screenshots` tab.
+- **Review summary.** A short overview of the session before you read the full transcript.
+- **Issue extraction.** Draft items sorted into Bug, UX Issue, Enhancement and Question / Follow-up, each linked to evidence in the transcript. They are drafts, so review them before exporting.
+- **Session library.** Filter by `Today`, `Yesterday`, `Last 7 Days`, `Last 30 Days`, `All Sessions` or a custom date range; search transcripts, titles, summaries, marker notes and extracted issues; sort newest or oldest first. Each session has Transcript, Screenshots, Extracted Issues and Summary tabs.
+- **Export Session Bundle.** A local folder with `transcript.md`, a `screenshots/` folder and `manifest.json`, plus `summary.md` when issue extraction has run.
+- **Export to GitHub or Jira (experimental).** Send selected draft issues to GitHub Issues or Jira Cloud. Issue bodies include screenshot references; screenshots are not uploaded as attachments.
+
+The library keeps your 500 most recent sessions. Older ones are removed, with their screenshots and audio, and BugNarrator tells you when that happens. Deleting a session is permanent and also removes the screenshots BugNarrator stored for it; files you exported are not touched.
+
+### Recording other audio
+
+BugNarrator records your microphone by default. It can also record system audio (everything your Mac plays, including other people on a call), or both together. This is experimental and stays off until you turn on the toggle, choose a system-audio source and accept the consent notice. Getting everyone's agreement before you record them is your responsibility.
+
+## Settings you will use
+
+- **AI provider:** provider, API key or base URL, and validation.
+- **AI Engines:** download link and status for the local Parakeet server, including `Check Server`.
+- **Hotkeys:** optional global shortcuts for start, stop and screenshot.
+- **GitHub export:** token, repository owner and repository name.
+- **Jira export:** Jira Cloud URL, email, API token, project key and issue type.
+- **General > "Auto-copy transcript to clipboard":** off by default. When on, the full transcript is copied every time a session is saved.
+- **Diagnostics & Privacy:** "Send screenshots to the AI provider" (off by default), "Record local usage analytics", and `Export Data`.
+
+## Privacy and where your data lives
+
+BugNarrator keeps your data on your Mac. Stored locally:
+
+- session history, transcripts, timeline markers and draft issues
+- screenshot files, unless you choose to upload them
+- bundles you export
+
+Sent to your configured AI provider, only when needed:
+
+- the recorded audio, after you stop a session (with `Local (Parakeet)` audio stays on your Mac)
+- transcript text, to create the summary and draft issues
+- screenshot file names and timestamps during issue extraction
+- screenshot images, only if you turn on "Send screenshots to the AI provider"
+- when duplicate review is on, titles and summaries of possible matching issues from your GitHub or Jira tracker
+
+Audio is not streamed while you are still recording. BugNarrator sends no telemetry, analytics or crash reports. It keeps a local activity log on your Mac that is never sent; you can turn it off with "Record local usage analytics". `Check for Updates` only reads the public GitHub releases list, without identifying you, and only when you click it.
+
+<Aside type="caution" title="Before you move to a new Mac">
+Transcripts and the search index are encrypted with a key tied to this Mac. Screenshots and recorded audio are not encrypted. After a Time Machine restore, a Migration Assistant move or a lost Mac, the files come back but the key does not, so the library cannot be read. Before you migrate or retire a Mac, run **Settings > Diagnostics & Privacy > Export Data**. It saves your sessions as plain JSON that anyone with the file can read, so store it carefully.
+</Aside>
+
+## Troubleshooting
+
+**No transcript was created.** Check your provider in `Settings` and validate the key. For hosted providers, check your network connection. For `Local (Parakeet)`, check that the local server is running and `Check Server` succeeds; long recordings can take several minutes. Try a short test recording.
+
+**Microphone is blocked.** Use `Open Microphone Settings`, or open `System Settings > Privacy & Security > Microphone` and allow BugNarrator. If access is restricted, check device-management or parental-control settings. If permission is on but audio still fails, check that an input device is connected. Restart BugNarrator after changing permissions if needed.
+
+**Screenshots are not appearing.** Make sure a recording is running, then drag to select a real area of the screen before releasing. Use `Open Screen Recording Settings`, or open `System Settings > Privacy & Security > Screen & System Audio Recording`, and allow BugNarrator.
+
+**Provider key missing, rejected or revoked.** Open `Settings`, replace the key or fix the endpoint or model, validate it, then retry the saved session.
+
+**Local server shows as not reachable after an update.** Remove the installed server in `AI Engines` settings and install it again; it does not upgrade automatically.
+
+**Export to GitHub or Jira fails.** Check the token, repository or project details in `Settings`, and your network connection.
+
+**Two BugNarrator icons in the menu bar.** Quit both and relaunch the copy in `Applications`.
+
+## Getting help
+
+To report a problem:
+
+<Steps>
+
+1. Reproduce the problem if you can.
+2. Hold `Option` while the menu bar window is open and choose `Export Debug Bundle`. The bundle contains version, macOS and recent log details plus session metadata, and leaves out API keys, tokens and other credentials.
+3. [Open an issue](https://github.com/ABD-Enterprises/bug-narrator/issues/new) and attach the bundle. Add a session bundle or screenshots if the problem affects a specific session.
+
+</Steps>
+
+- Source, documentation and releases: [github.com/ABD-Enterprises/bug-narrator](https://github.com/ABD-Enterprises/bug-narrator)
+- Bug reports and feature requests: [GitHub issues](https://github.com/ABD-Enterprises/bug-narrator/issues)
+- Other questions: [Support](/support/)
+
+## License
+
+BugNarrator is licensed under the [Apache License 2.0](https://github.com/ABD-Enterprises/bug-narrator/blob/main/LICENSE). The project does not currently accept outside code contributions, but bug reports and focused feature requests are welcome.

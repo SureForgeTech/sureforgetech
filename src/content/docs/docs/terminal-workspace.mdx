@@ -1,6 +1,176 @@
 ---
 title: SureForge Terminal
-description: A native macOS SSH client.
+description: User guide for SureForge Terminal (Terminal Workspace), a local-first native macOS SSH client with hosts, SFTP, keys, snippets and port forwarding.
 ---
 
-SureForge Terminal is a native macOS SSH client with host management, SFTP, key management, known-host checks, command snippets, and port forwarding. Further product details are being prepared.
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+SureForge Terminal is a local-first SSH client for macOS. It brings your hosts, SSH sessions, SFTP file transfers, SSH keys, saved command snippets and port forwards together in one native Mac app. Inside the app and on GitHub it is called **Terminal Workspace**.
+
+Local-first means your host inventory, keys and settings live on your Mac. There is no account to create and no cloud service to sign in to. Cloud sync and team features are not part of the app today.
+
+SureForge Terminal is open source under the Apache License 2.0. The source, releases and issue tracker are in the [terminal-workspace repository](https://github.com/ABD-Enterprises/terminal-workspace) on GitHub.
+
+<Aside type="note">
+This guide describes the current public release, v0.1.0.
+</Aside>
+
+## What you need
+
+- A Mac with Apple silicon (arm64).
+- macOS 13 or later.
+- An SSH server you can reach, with a username and either a password or an SSH key. You can also try the app first with sample data and no server at all (see [Demo mode](#demo-mode-and-sample-data)).
+
+## Install
+
+<Steps>
+
+1. Go to the [Releases page](https://github.com/ABD-Enterprises/terminal-workspace/releases) of the terminal-workspace repository and download the macOS disk image (DMG) for the latest release.
+2. Open the DMG.
+3. Drag **Terminal Workspace** into **Applications**.
+4. Launch it from **Applications**.
+
+</Steps>
+
+Releases are signed with a Developer ID certificate and notarized by Apple, so macOS should open the app without an "unidentified developer" warning. You may still see the usual one-time confirmation for an app downloaded from the internet. If macOS does report an unidentified developer, do not bypass the warning; [open an issue](https://github.com/ABD-Enterprises/terminal-workspace/issues) instead.
+
+## Find your way around
+
+The sidebar on the left holds your **Local Vault**: a search box for your host inventory, a button to open a local terminal, recent and pinned hosts, and these sections:
+
+| Section | What it is for |
+| :--- | :--- |
+| **Hosts** | Your host inventory, host-key trust, and launching connections. |
+| **Sessions** | Terminal tabs, split panes and session restore. |
+| **Snippets** | Saved commands, and running them on several hosts at once. |
+| **Keys** | SSH keys: import, generate and copy to hosts. |
+| **Transfers** | The SFTP file browser and transfer queue. |
+| **Tunnels** | Every active port forward across your sessions. |
+| **Settings** | Preferences, backup and runtime mode. |
+
+## First launch
+
+When your inventory is empty, the **Hosts** section shows a welcome panel with four ways to start:
+
+- **Add a host manually** opens the host editor.
+- **Import ~/.ssh/config** pulls in hosts you already use with OpenSSH. The import follows `Include` lines and wildcard patterns in your config.
+- **Open a local terminal** starts a shell on your own Mac.
+- **Load sample data** switches on demo mode and fills the app with sample hosts so you can look around.
+
+If you add your first host another way, a tip on the Hosts page reminds you that you can still import the rest from `~/.ssh/config`.
+
+## Demo mode and sample data
+
+Demo mode lets you explore the app without real servers or real keys. While it is on, sessions run in a simulated terminal, SFTP uses a sample in-memory file system, and key tools, host-trust scans, snippet runs and port forwards return simulated results. Nothing connects to your servers.
+
+In the Mac app, demo mode is **off** by default. To turn it on or off, open **Settings** and use the **Runtime mode** button. It reads **Demo backend** when demo mode is on and **Native transport** when the app is making real connections.
+
+<Aside type="caution">
+If connections seem to succeed but nothing reaches your server, check that **Runtime mode** is not set to **Demo backend**.
+</Aside>
+
+## Add a host and connect
+
+<Steps>
+
+1. Open **Hosts** and add a host (or use **Add a host manually** on the welcome panel).
+2. Give it a **Label**, and optionally a **Group**, **Tags** and **Notes** to keep a large inventory organized.
+3. Leave **Protocol** set to **SSH** and enter the **Hostname**, **Port** and **Username**.
+4. Choose an **Auth method**: **Password**, **Private key path** (for example a key in `~/.ssh`), or **None / manual later**.
+5. Optionally pick a **Jump host** to reach this server through another host in your inventory, instead of a **Direct connection**.
+6. Choose the **Host key trust** policy (see the next section) and save.
+7. Launch the host. The session opens in **Sessions**, where you can work in tabs and split panes.
+
+</Steps>
+
+If a password or key passphrase is needed when you connect, the app asks for it. Passwords and passphrases are stored in the macOS Keychain, never in your host inventory.
+
+## SSH keys and host trust
+
+### Your keys
+
+Open **Keys** to manage the SSH keys you sign in with:
+
+- **Import** an existing private key, or **generate** a new key on your Mac.
+- **Assign** a key to a host so it is used as that host's default identity.
+- **Copy a key to a host.** This installs the public key into `~/.ssh/authorized_keys` on the server you pick, much like `ssh-copy-id`. Only SSH hosts can be chosen.
+
+### Trusting a server's host key
+
+A host key is the fingerprint a server uses to prove it is the machine you meant to reach. SureForge Terminal checks it on every connection:
+
+- The first time you connect, the app shows the server's key fingerprint and asks whether to trust it. If the server offers several key types (for example ed25519, RSA and ECDSA), you choose which one to trust.
+- Once a key is trusted or pinned, a later connection that presents a **different** key is refused before any password or key is sent.
+- Each host has a **Host key trust** policy. **Require trusted key** blocks SSH sessions, SFTP and snippet runs until you have trusted a key for that host. **Allow unknown key** lets the first connection pin whatever key the server presents.
+
+To set up strict trust ahead of time:
+
+<Steps>
+
+1. Open **Keys**.
+2. Scan the host's key.
+3. Trust the scanned key.
+4. Set the host's **Host key trust** to **Require trusted key**.
+
+</Steps>
+
+## Transfer files with SFTP
+
+Open **Transfers**, choose an SSH host, and browse its files. You can upload and download files, create folders, rename and delete remote entries. Transfers appear in a queue, and you can clear finished ones. To start browsing in a particular folder, set the host's **SFTP root** in the host editor.
+
+## Snippets
+
+A snippet is a saved command you can reuse. Open **Snippets** to create one with a **Title**, **Description**, the **Command** itself and **Tags**, plus optional **Default targets** (the hosts it usually runs on). You can search snippets by title, tag, description or command text.
+
+From a snippet you can:
+
+- **Run in active pane** to type it into the terminal you are working in.
+- **Broadcast** it to several selected hosts at once and see each host's output side by side.
+
+## Port forwarding
+
+Port forwards are set up from a connected session. Choose a **Local forward** (a port on your Mac reaches a destination through the server) or a **Remote forward** (a port on the server reaches a destination on your side), fill in the bind and destination host and port, and create it.
+
+**Tunnels** lists every active forward across all your sessions, with the host, direction and the local and remote ends. You can refresh the list and stop a forward from there.
+
+## Updates
+
+**Settings** has a **Check for updates on launch** option and a **Check for updates now** button. When the app finds a newer release, a banner offers **Install and restart**, or you can dismiss it.
+
+<Aside type="note">
+The v0.1.0 release notes say the in-app update feed activates from the next release. Until a newer version is published, the app reports no updates. To update by hand, download the latest release from the [Releases page](https://github.com/ABD-Enterprises/terminal-workspace/releases) and replace the app in **Applications**.
+</Aside>
+
+## Your data and security
+
+- **Local storage.** Your hosts, keys, snippets, trusted host keys and settings are stored on your Mac in the app's own data folder. Trusted host keys are kept in an OpenSSH-style `known_hosts` file there.
+- **Secrets.** Passwords and key passphrases are kept in the macOS Keychain, separate from your host inventory.
+- **Backups.** From **Settings** you can export hosts, keys, snippets, trusted host keys and vault details. Passwords and passphrases are never included in an export. When you import a backup, the app keeps your Mac's own device identity.
+
+## Troubleshooting
+
+- **Nothing seems to reach the server.** Check that **Settings → Runtime mode** shows **Native transport**, not **Demo backend**.
+- **A host refuses to connect until a key is trusted.** The host is set to **Require trusted key**. Scan and trust its key in **Keys**, or confirm the fingerprint when prompted.
+- **The connection is refused because the host key changed.** Do not trust the new key straight away. A changed key can mean the server was rebuilt, or that something is intercepting the connection. Confirm the new fingerprint with whoever runs the server, then scan and trust the new key in **Keys**.
+- **You cannot create a port forward.** Forwards need a live session. Reconnect the session, then try again.
+- **A host is missing from Transfers or from Copy key.** Only hosts using the SSH protocol appear there.
+
+## Reporting a problem
+
+When you report a problem, include:
+
+- the app version and your macOS version
+- what you were doing and what you expected to happen
+- the exact error message the app showed
+
+Never include private keys, passwords, recovery codes or your SSH configuration files in a report.
+
+<Aside type="note">
+The repository's support-bundle guide explains where the app writes log files for builds that produce them. Release v0.1.0 does not write log files, so for now a clear description is the most useful thing to send.
+</Aside>
+
+## Getting help
+
+- **Bugs and questions:** [open an issue](https://github.com/ABD-Enterprises/terminal-workspace/issues) in the terminal-workspace repository.
+- **Security problems:** do not open a public issue. Report them privately through the repository's **Security** tab, as described in its [security policy](https://github.com/ABD-Enterprises/terminal-workspace/blob/main/SECURITY.md).
+- **Other help:** see [Support](/support/).
