@@ -1,6 +1,228 @@
 ---
 title: SureForge FM Data API
-description: FileMaker Data API tools for Visual Studio Code.
+description: User guide for SureForge FM Data API, a free, open-source VS Code extension for working with the FileMaker Data API.
 ---
 
-SureForge FM Data API is a free and open-source VS Code extension for FileMaker developers. It supports create, read, update, and delete operations, query building, schema management, batch operations, Layout Mode design, connection profiles, and a Next.js starter for generated applications. It is MIT-licensed and is not affiliated with Claris or FileMaker.
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+SureForge FM Data API is a free, open-source VS Code extension for FileMaker developers. It connects to the FileMaker Data API so you can run finds, browse layouts and fields, edit records, run scripts, track schema changes, export and update records in batches, and generate TypeScript types without leaving VS Code.
+
+The extension is MIT-licensed and collects no telemetry. There is no account to create: it talks only to your FileMaker server, or to your own proxy if you use one. On the Visual Studio Marketplace it is listed as **FileMaker Data API Tools** (publisher SureForgeTech).
+
+## What you need
+
+- **FileMaker Server with the Data API enabled** (in the Admin Console under Connectors), reachable over HTTPS.
+- **A FileMaker account whose privilege set has the `fmrest` extended privilege** ("Access via FileMaker Data API"). Without it, sign-in fails in a way that looks like a wrong password.
+- **A server certificate your computer trusts**, or one you choose to trust in the connection wizard (see [Certificates](#certificates)).
+- **VS Code 1.96 or newer** on macOS, Windows or Linux, with a folder open. Saved queries, schema snapshots, generated types and the offline cache are stored in that folder. Virtual workspaces such as github.dev are not supported.
+
+<Aside type="caution">
+FileMaker Cloud sign-in with a Claris ID is not supported, and FileMaker Cloud is untested. The project's [compatibility notes](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/extension/docs/COMPATIBILITY.md) list which FileMaker Server versions are expected to work and what has and has not been tested.
+</Aside>
+
+Use a dedicated FileMaker account with only the access you need. A FileMaker privilege set is the one limit that holds no matter what the extension, an AI tool or you do.
+
+## Install
+
+<Steps>
+
+1. Open the Extensions view in VS Code (`Cmd+Shift+X` on macOS, `Ctrl+Shift+X` on Windows and Linux).
+2. Search for **FileMaker Data API Tools** (publisher SureForgeTech) and select **Install**.
+3. Open the Command Palette and type `FileMaker:` to check that the commands are there.
+
+</Steps>
+
+You can also install from a terminal with `code --install-extension SureForgeTech.filemaker-data-api-tools`, or open the [Marketplace listing](https://marketplace.visualstudio.com/items?itemName=SureForgeTech.filemaker-data-api-tools). To install a specific version, download the `.vsix` file from the [GitHub releases](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/releases) and run **Extensions: Install from VSIX...**. A VSIX install does not update itself.
+
+For a guided tour, run **FileMaker: Open Getting Started Walkthrough**. The full manual opens with **FileMaker: Open User Guide**.
+
+### Trusted workspaces
+
+When VS Code asks whether you trust the authors of a folder, choose **Yes, I trust the authors** only for folders that are yours or come from a source you trust. In an untrusted folder (Restricted Mode) the extension can still browse, read metadata and run finds, but it will not edit, create or delete records, upload to containers, run scripts, run batch jobs, write generated files or load plugins.
+
+## Connect to a server
+
+A **connection profile** holds the server address, the database name and how you sign in. Profiles belong to your VS Code installation and follow you between workspaces.
+
+<Steps>
+
+1. Run **FileMaker: Add Connection Profile**, or select the plus icon in the FileMaker sidebar.
+2. Give the profile a name, such as `Dev Server`.
+3. Choose **Direct** or **Proxy**:
+   - **Direct** talks straight to the FileMaker Data API. Enter the server URL (for example `https://fm.example.com`), the database name without `.fmp12`, the account name and the password.
+   - **Proxy** is for teams that run their own middleware in front of FileMaker. Enter the server URL, the database name, the proxy endpoint and, if needed, the proxy API key. The extension never sees the FileMaker credentials in this mode.
+4. Leave the API base path (`/fmi/data`) and API version (`vLatest`) alone unless your administrator says otherwise.
+5. Select **Test Connection**. A green badge means the test passed.
+6. Select **Save Profile**, then **Connect Now**. The sidebar fills with layouts.
+
+</Steps>
+
+In direct mode, **Test Connection** works in three steps and tells you which one failed: reaching the Data API, listing the hosted databases, and signing in. If the database name is wrong, the message lists the databases the server hosts.
+
+Other connection commands: **FileMaker: Connect**, **FileMaker: Disconnect**, **FileMaker: Edit Connection Profile** and **FileMaker: Remove Connection Profile**. The status bar shows the active profile; select it to switch profiles or disconnect. Removing a profile also deletes its saved queries and stored secrets.
+
+### Where your password is kept
+
+Passwords, proxy API keys and session tokens are stored in VS Code SecretStorage, which uses your operating system's keychain (Keychain on macOS, Credential Manager on Windows, a keyring such as GNOME Keyring on Linux). They are never written to settings, profiles, saved queries, snapshots or logs.
+
+If you change a saved profile's server address, proxy address or account name, the wizard asks for the password again, so a saved password is never sent to a different server.
+
+### Certificates
+
+The extension checks the server's certificate the normal way. A certificate from a public authority needs nothing from you. For a server your computer does not trust, the connection wizard offers two options, stored per profile:
+
+- **Trust this certificate.** When **Test Connection** meets a certificate problem, a dialog shows the certificate's subject, issuer, dates and SHA-256 fingerprint. Compare the fingerprint with the one your administrator gives you before you trust it. A different certificate later is refused. This is the working option for FileMaker Server's built-in default certificate.
+- **Custom CA certificate file**, under **Certificates (advanced)**, for a company certificate authority whose certificate names the server.
+
+<Aside>
+FileMaker Server's default certificate is labelled "Not for Production Use". For production, install a certificate from a public authority on the server. A trusted (pinned) certificate only works on a direct connection, not through an HTTP proxy.
+</Aside>
+
+### Sharing a profile with your team
+
+A repository can include `.filemaker/profile-template.json` to pre-fill the wizard for everyone who clones it. A template must not contain secrets; each person enters their own password. In an untrusted workspace the template is ignored, and in a trusted one the wizard asks you to confirm before sending credentials to an address that came from the template.
+
+## Browse layouts and fields
+
+Select the FileMaker icon in the activity bar to open two views:
+
+- **Connections** lists your profiles, each layout with its fields, value lists and schema snapshots, plus saved queries. Right-click a layout for common actions such as opening the Query Builder, editing a record, running a script, capturing a schema snapshot, generating types or starting a batch job.
+- **Layout Inspector** shows the fields, portals, value lists and validation rules of one layout. Select a layout in Connections, or run **FileMaker: Select Layout for Inspector**.
+
+**FileMaker: Refresh Connections** reloads the tree, and **FileMaker: Refresh Schema Cache** drops cached layout metadata. Layout, field and script names are used exactly as FileMaker lists them, so a leading or trailing space is part of the name.
+
+## Find records with the Query Builder
+
+<Steps>
+
+1. Run **FileMaker: Open Query Builder**, or right-click a layout and choose it.
+2. Pick the profile and the layout.
+3. On the **Form** tab, choose a field, a condition (such as *equals*, *begins with*, *contains phrase*, *between* or *is empty*) and a value.
+4. Use **Add request (OR)** for alternative criteria, tick **Omit** to exclude matches, and **Add sort field** to sort.
+5. Select **Run**, or press `Cmd+Enter` / `Ctrl+Enter`.
+
+</Steps>
+
+The **JSON** tab shows the same request as a Data API find body, and you can edit it directly. Results are paged, and you can open any row with **View** or **Edit**. Under **Export** you can copy the results as a table or save them as CSV or JSON. **Save…** stores the query under the profile in the sidebar; share saved queries with **FileMaker: Export Saved Queries (JSON)** and **FileMaker: Import Saved Queries (JSON)**.
+
+A find that matches nothing shows an empty result, not an error. For a quick find without the panel, use **FileMaker: Run Find (JSON)**.
+
+### Copy a request as code
+
+**Copy request** in the Query Builder, Script Runner and record panels, or **FileMaker: Copy Request as Code…** in the Command Palette, turns a request into curl, `fetch()`, a `.http` file, a Postman collection or TypeScript. Nothing is sent when you copy, and passwords and session tokens are never copied.
+
+## Create, read, update and delete records
+
+A **record ID** is FileMaker's internal record number (what `Get ( RecordID )` returns), shown in the first column of Query Builder results.
+
+- **Read:** **FileMaker: Get Record by ID** or **FileMaker: Open Record Viewer**, or **View** on a Query Builder row.
+- **Update:** **FileMaker: Open Record Editor** or **FileMaker: Edit Record by ID**, or **Edit** on a row. **Preview Update JSON** shows exactly what will be sent, and **Save** asks you to confirm the changed fields. Only changed fields are sent.
+- **Create:** **FileMaker: Create Record** opens the editor in create mode.
+- **Delete:** **FileMaker: Delete Record** asks you to confirm the record ID and layout. Deleting cannot be undone.
+- **Containers:** **FileMaker: Upload to Container** uploads a file to a container field (100 MB limit by default).
+
+If someone else changed the record after you loaded it, FileMaker refuses the save (error 306) and nothing is written. The editor shows what changed and keeps your edits so you can reload and try again. Calculation, summary and container fields are read-only in the editor.
+
+### Run scripts
+
+**FileMaker: Open Script Runner** runs a FileMaker script in the context of a layout, with an optional record ID and parameter. **Build Parameter** helps you assemble a JSON parameter. The Script Runner does not ask for confirmation, so check the script name before you run it.
+
+## Schema snapshots, types and code generation
+
+- **FileMaker: Capture Schema Snapshot** records a layout's fields and metadata. **Diff Against Latest Snapshot** or **FileMaker: Diff Schema Snapshots** opens a side-by-side view of added, removed and changed fields. Snapshots are kept in `.vscode/filemaker/snapshots/` in a trusted workspace.
+- **FileMaker: Generate Types for Layout** and **Generate Types for All Layouts** write TypeScript interfaces into the `filemaker-types` folder (set by `filemaker.typegen.outputDir`).
+- **FileMaker: Generate TypeScript Client** writes a typed client for the layouts you choose.
+- **FileMaker: Generate Snippets for Layout** adds editor snippets to your workspace.
+- With enterprise mode on, **Environment Sets** let you compare profiles such as Dev, Staging and Production with **FileMaker: Compare Environments** and **FileMaker: Diff Layout Across Environments**.
+
+Snapshots and generated files contain your layout and field names. Treat them as internal project data.
+
+## Batch export and batch update
+
+Batch work runs as a job with a progress bar, listed under **Jobs** in the sidebar. **FileMaker: Cancel Job** stops new requests; it does not undo updates already made.
+
+- **FileMaker: Batch Export (Find)** exports the results of a find to JSON Lines (`.jsonl`) or CSV. It stops at 10,000 records by default (`filemaker.batch.maxRecords`). CSV text that a spreadsheet would run as a formula gets a leading apostrophe.
+- **FileMaker: Batch Update from CSV/JSON** updates many records from a file. Choose **Dry-run only (recommended)** first to preview the changes without sending anything. Keep the `modId` column from your export and choose **Check for newer changes** so that records edited since the export are not overwritten.
+
+There is no undo for batch updates. Keep an export from before the update for reference.
+
+## FM Web and Layout Mode
+
+FM Web is an **experimental** workflow for designing web layouts on top of your FileMaker data. Everything lives under `.fmweb/` in your workspace and needs a trusted workspace.
+
+<Steps>
+
+1. **FileMaker: Initialize FM Web Project** creates the `.fmweb/` folder.
+2. **FileMaker: Select Active Profile** and **FileMaker: Sync FM Web Project Metadata** copy layout, field and script metadata into the project.
+3. **FileMaker: Open FM Web Layout Mode** opens the designer, where you place fields from a synced layout on a canvas. Starter templates and **Arrange standard form** help keep layouts tidy.
+
+</Steps>
+
+<Aside type="note">
+Generating and previewing a Next.js app (**Generate FM Web Next.js App** and **Start FM Web Preview Server**) needs a clone of the [source repository](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code). The Marketplace package does not include the app template, so those commands are hidden there. Layout Mode and metadata sync work in every installation.
+</Aside>
+
+## AI tools (off by default)
+
+The extension can give AI tools in VS Code, the `@filemaker` chat participant (read only) and MCP clients such as Claude Code or Cursor access to one connection. All of this is off until you turn on `filemaker.ai.enabled` in your **user** settings and pick a connection with **FileMaker: Set AI Access for Connection**. Writes and scripts need further switches, every write asks you in a dialog, and usage is capped per session.
+
+Anything an AI tool reads is sent to the AI model provider you chose. Connect with a FileMaker account that has a read-only privilege set. See [Using AI with FileMaker](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/extension/docs/USER_GUIDE.md#using-ai-with-filemaker) before you switch it on.
+
+## Useful settings
+
+| Setting | Default | What it does |
+| --- | --- | --- |
+| `filemaker.requestTimeoutMs` | `15000` | Timeout for Data API requests, in milliseconds. |
+| `filemaker.connectionWizard.requireTestBeforeSave` | `warn` | Whether the wizard requires a passing test before saving (`off`, `warn` or `block`). |
+| `filemaker.savedQueries.scope` | `workspace` | Keep saved queries per workspace, or `global` in your user data. |
+| `filemaker.typegen.outputDir` | `filemaker-types` | Folder for generated TypeScript types. |
+| `filemaker.batch.maxRecords` | `10000` | Safety cap for batch export. |
+| `filemaker.batch.dryRunDefault` | `true` | Start batch updates as a dry run. |
+| `filemaker.offline.mode` | `false` | Use cached metadata only and block writes. |
+| `filemaker.enterprise.mode` | `false` | Turn on role-based limits (`viewer`, `developer`, `admin`). |
+| `filemaker.ai.enabled` | `false` | Allow AI tools to use a connection (user settings only). |
+
+A repository's workspace settings can make the extension stricter, for example by turning offline mode on or a feature off, but never looser. **FileMaker: Show Effective Settings** shows which value is in effect and why.
+
+## Data handling and security
+
+- **No telemetry.** Nothing is sent to the extension's authors. Requests go only to your FileMaker server or your proxy, and to an AI provider only if you switch AI features on.
+- **Secrets stay in your keychain** through VS Code SecretStorage. Logs, history and error details hide authorization headers, tokens and passwords.
+- **Stored locally:** connection profiles (without passwords) in VS Code's extension state; saved queries, history and schema snapshots in workspace state or workspace files. Schema snapshots, saved queries and the offline cache are not encrypted and contain internal names, so keep them out of public repositories.
+- **Risky actions ask first,** including deletes, batch updates, scripts from FM Web layouts and running workspace plugins.
+
+The project's [data handling notes](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/docs/DATA_HANDLING.md), [security overview](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/docs/security.md) and [privacy policy](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/PRIVACY.md) have the full detail.
+
+## Troubleshooting
+
+Start with **Test Connection** in the wizard; it names the step that failed. **FileMaker: Diagnose Connection** checks the address, port, certificate and network settings without signing in, and **FileMaker: Test My Server** runs read-only checks against your server in a separate session.
+
+| You see | What it usually means |
+| --- | --- |
+| Error 212, or sign-in fails with a correct password | Wrong account or password, or the privilege set lacks `fmrest`. |
+| "Sign-in is paused" (errors 210–214 or 1703) | FileMaker rejected the saved credentials. Fix the account or password, then connect again. The pause stops repeated failures from locking the account. |
+| Error 214 | Too many sign-in attempts. Wait for the lockout to expire; retrying keeps it in place. |
+| Error 1703 | The server expects a different sign-in method, such as Claris ID or external authentication. |
+| HTTP 404, or error 802 | Check the server URL, API path, API version and database name (without `.fmp12`), and that the Data API is enabled and the file is hosted. |
+| Error 952 or "Session expired" | The Data API token timed out. The extension usually signs in again on its own; otherwise disconnect and connect. |
+| Error 956 | The server has no free Data API sessions. Wait, or ask your administrator to disconnect idle clients. |
+| A certificate error | Use **Trust this certificate** or a CA file in the wizard (see [Certificates](#certificates)). |
+| A find returns nothing | No records match (FileMaker code 401). This is not the same as HTTP 401. |
+| Error 306 on save | Someone changed the record since you loaded it. Reload and make your change again. |
+
+The [troubleshooting guide](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/extension/docs/TROUBLESHOOTING.md) covers each error with its symptom, cause and fix.
+
+## Get help
+
+- Source, documentation and releases: [github.com/SureForgeTech/filemaker-data-api-for-vs-code](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code)
+- Bug reports and feature requests: [GitHub issues](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/issues). Include the version from **FileMaker: About / Show Version** and the output of **FileMaker: Show Diagnostics**, with secrets and private details removed.
+- Security vulnerabilities: do not post them in a public issue. Follow the project's [security policy](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/SECURITY.md).
+- Other questions: [Support](/support/)
+
+Support is best effort, with no guaranteed response or fix time. Never paste passwords, session tokens or API keys into an issue.
+
+## License
+
+SureForge FM Data API is licensed under the [MIT License](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/LICENSE).
+
+Claris and FileMaker are trademarks of Claris International Inc., registered in the U.S. and other countries. This extension is independent and is not affiliated with or endorsed by Claris.
