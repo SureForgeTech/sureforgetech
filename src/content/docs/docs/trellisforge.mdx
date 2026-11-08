@@ -1,6 +1,121 @@
 ---
 title: SureForge Trellis
-description: An editable work hierarchy for Jira Cloud.
+description: What SureForge Trellis is, how Jira Cloud teams use it day to day, how it follows Jira permissions, and what it does and does not do today.
 ---
 
-SureForge Trellis is a Jira hierarchy and planning app built on Atlassian Forge. It presents work as an editable hierarchy with planning, views, and reporting capabilities. Product availability and documentation details will be published when ready.
+import { Aside } from '@astrojs/starlight/components';
+
+SureForge Trellis is an app for Jira Cloud, built on Atlassian Forge. It shows any set of Jira work as an outline (an indented hierarchy) that you can open, group, edit and plan in place, and it can record time as ordinary Jira worklogs. Planning, timesheets and cost tracking are optional parts that a Jira administrator turns on when a team needs them.
+
+<Aside type="caution" title="In development">
+Trellis is not yet available on the Atlassian Marketplace, and pricing and published terms are not available yet. To ask about access, [contact us](/support/).
+</Aside>
+
+## Who it is for
+
+- **People who are given work in Jira** and want one place to find it, keep it up to date and log time against it.
+- **Scrum masters, product owners and release train engineers** who plan sprints, releases and planning intervals across teams.
+- **Approvers and timekeepers** who review submitted weeks of time and run the pay period.
+- **Jira administrators** who decide which parts of Trellis are on and who they are offered to.
+
+## Core ideas
+
+### Outlines
+
+An outline is any Jira work you choose (a project, a board, a saved filter or your own JQL search) shown as a hierarchy that follows your site's own Jira levels, for example initiatives, then epics, then tasks. Within each level, items follow Jira's rank. An outline loads up to 5,000 items by default and up to 10,000 on request; a list that is cut short says so.
+
+### Views
+
+A view saves how a list looks: its columns, sorting, grouping, filters, calculated columns, charts and timeline settings. Keep views to yourself, or (as an administrator) share them with a project or with everyone. The built-in templates stay the same for everyone; a view is your own copy.
+
+### Modules
+
+Beyond the outline, Trellis is made of modules such as My work, charts, timesheets, the planning board, milestones, and cost and budgets. A Jira administrator switches each one on or off for the site in **Trellis administration** (Jira settings, Apps). Turning a module off hides it and keeps its data.
+
+### Ways of working
+
+An administrator picks a way of working for the site: Scrum, SAFe, Large-Scale Scrum, Nexus or Disciplined Agile Delivery. It changes the words on the planning screens and the suggestions Trellis makes. It does not change what Trellis does.
+
+## Working with Trellis day to day
+
+Open **Trellis** from a project's sidebar or Jira's Apps menu.
+
+### Find your work
+
+**My work** lists everything you are responsible for or watching, each item under the reason it is there: overdue, due this week, blocked, mentioned you, in progress, up next and more. Click a reason to hide it, or add up to ten reasons of your own, each a name and a JQL search. On sites that also use Confluence, My work can show pages that mention you.
+
+### Edit in place
+
+- Change status, assignee, dates and other fields directly in the row. If Jira's workflow needs more (a resolution, for example), a short form opens first.
+- Drag rows to re-rank them or move them under a new parent.
+- Edit many items at once, with a preview before anything is written and **Undo** afterwards.
+- Open an item's panel to read it, comment and follow its links without leaving the list.
+
+### See where things stand
+
+- **Charts** such as work by status, work by person, who is overloaded and progress by sprint, plus a matrix of any two fields. Click part of a chart to narrow the list.
+- A **Timeline** drawn from start and due dates, with dependency lines and a forecast. The forecast says "not enough history" until the team has finished enough work to base it on.
+- **Roadmap** and **Release status** views, milestones with readiness checks, and baselines to compare against.
+
+### Plan across teams
+
+- A planning board with iterations across and teams down, capacity per team, and a plan health line that points out overloaded teams and unplanned work.
+- Sprint planning across teams, a dependency matrix, and a sprint outcome report of what was done, carried over and added.
+- A risk board (ROAM) and planning-interval objectives, both kept as ordinary Jira items.
+- A wall-board view for showing the plan on a room monitor.
+
+Trellis suggests sprint names and dates for a planning interval; you create the sprints in Jira yourself.
+
+### Import and export
+
+Export what you see as CSV or Excel, using your own column names. **Import** creates or updates Jira items from a file and shows a preview first.
+
+### Log time (when timesheets are on)
+
+- Use a week grid, a timer, or the small time chip on any row of the list. Type `2`, `1.5` or `1h 30m`.
+- Every entry is a normal Jira worklog, written as you. Your hours stay in Jira.
+- If your site uses approvals, you submit a week and an approver approves it or returns it with a reason. A submitted week is locked inside Trellis; Jira itself is not locked, and an approver is shown when a week changed in Jira after it was sent.
+- Approved weeks can be exported as a table to review before you use it in your own payroll process.
+
+### When something looks wrong
+
+The **Help** menu has **Why can't I see…** (a module that is off, a role you do not have, or something your Jira plan lacks), **Check this site…** (what your Jira has and is missing for each feature, with the fix), and **Report a problem…**, which prepares a block of details for you to read, copy and send to whoever supports Trellis for you.
+
+## Jira permissions
+
+Trellis reads and writes Jira as the person using it, so Jira's own permissions decide what each person can see and change. A change in Trellis is a change made by you in Jira, and Jira can refuse it.
+
+A few things work differently, and are described in the [Trellis privacy statement](/docs/trellis-privacy/):
+
+- When you submit a week, Trellis itself reads that week's worklogs and keeps a copy, so an approver can compare what was sent with what Jira holds now.
+- People the site names as timekeepers can see named people and their logged hours for the pay period, which Trellis reads itself.
+- After an approver approves a week, Trellis adds an approval note to that week's worklogs in Jira.
+- Some scheduled daily jobs run as the app.
+
+An administrator chooses which modules are on and who they are offered to, and names Jira groups for roles such as approvers and timekeepers. These settings never give anyone more access to Jira than Jira already allows.
+
+## Your data
+
+- Trellis declares no external network access and sends nothing to SureForgeTech or anyone else.
+- What Trellis saves (such as saved views, timesheet records and approvals) is kept in app storage that Atlassian hosts for your site. Your hours remain ordinary Jira worklogs.
+- To open faster, your browser keeps the rows of the last outline you opened on your device. You can switch this off, which is a good idea on a shared computer.
+- A Jira administrator can export every record Trellis keeps for the site in one job.
+
+The [Trellis privacy statement](/docs/trellis-privacy/) lists what is saved about people, how long it is kept and how it is removed.
+
+## Requirements
+
+- **Jira Cloud.** Trellis is a Forge app for Jira Cloud. There is no Jira Data Center or Server version.
+- Some features depend on what your site has, such as a Sprint field, a Team field, start and due dates, or Confluence. **Help, Check this site…** lists what is present and missing.
+- A web browser. Trellis is designed to work in a phone's browser, but it has not yet been checked on real phones, and it is not known to open in the Jira mobile app.
+
+## What Trellis does not do
+
+- It is not a payroll or invoicing system. It does not calculate wages, premiums, holiday pay or tax. Check every figure before relying on it.
+- It does not send email, chat or calendar reminders. Reminders appear inside Trellis only.
+- It does not offer draft ("what if") planning.
+- It does not create sprints in Jira for you.
+
+## Getting access
+
+Trellis is not yet on the Atlassian Marketplace. To ask about access or anything on this page, [contact us](/support/).
