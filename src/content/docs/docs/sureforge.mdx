@@ -1,10 +1,96 @@
 ---
 title: SureForge Agent
-description: Controlled local AI-assisted software development.
+description: Overview of SureForge Agent, a local command-line tool that gives a coding agent one bounded task, checks and independently reviews the result, and hands it back to a human.
 ---
 
-SureForge Agent is a local command-line tool for assigning bounded tasks to coding agents, running automatic validation, and requesting independent review. A human receives the result; SureForge Agent does not merge code autonomously.
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+SureForge Agent is a local command-line tool for controlled AI-assisted software development. It gives a coding agent one bounded task, runs your repository's own checks, asks a separate reviewer for a verdict, and hands the verified result back to you. It never merges code: your repository host's branch protection and required checks still decide what reaches your main branch.
+
+It is built for developers and small teams who want to use AI coding agents but need every change to be scoped, checked and reviewed before a person accepts it.
 
 **Status:** Developer preview. **Platforms:** macOS and Linux.
 
-Detailed installation and usage documentation is in preparation.
+## Key ideas
+
+- **Work contract.** A short file that describes one task: what it is for, which files the agent may change, which command checks the work, and which tools do the coding and the reviewing. You review the contract before anything runs.
+- **Coder.** The command-line coding agent you choose. SureForge Agent does not include an AI model; it runs the tool you configure.
+- **Check.** Your repository's own validation command, such as its test suite. A check that obviously proves nothing is refused before the run starts.
+- **Reviewer.** A separate tool that reads the exact change and returns a verdict. The reviewer must be configured separately from the coder.
+- **Handoff.** When the checks pass and the reviewer approves, the run stops and waits for you. Accepting the change is always your decision.
+- **Run report.** A record kept on your machine of what ran, what changed and what the reviewer said, so you can inspect or recover any run later.
+
+## How a task flows
+
+<Steps>
+
+1. **Describe the task.** SureForge Agent can propose a work contract by reading your repository and suggesting a check command. Proposing a contract changes nothing. You can also start from a GitHub issue. Review the proposal and fill in anything it could not work out.
+
+2. **Preview it.** A dry run checks the contract and your workspace and shows what would happen, without starting the coder or any other command.
+
+3. **Run it.** Only after you approve does the coder make its change, in a separate Git worktree on a working branch. SureForge Agent then confirms that the agent stayed inside the files it was allowed to touch, runs your check, and sends the exact change to the reviewer.
+
+4. **Read the result.** An approved change waits for you. Anything else stops the run, and your work is kept. Progress and the final result appear in your terminal, and the run report keeps the details.
+
+5. **Correct if needed.** If the reviewer rejects the change, you can start a correction attempt from that report. Each attempt is checked and reviewed again from scratch, and there is a fixed limit on attempts per task. Nothing retries on its own.
+
+6. **Deliver.** You can commit and open a pull request yourself, or let SureForge Agent deliver exactly the reviewed change: a local commit, a normal (non-force) push of your working branch, and one pull request. Delivery also has a preview step, and it stops if the branch on the server has moved unexpectedly. It never merges.
+
+</Steps>
+
+## What it does and does not do
+
+SureForge Agent does:
+
+- Work on one bounded task at a time, with an explicit list of files the agent may change.
+- Stop when the agent edits files outside that list, or touches the instruction files that steer AI coding tools.
+- Treat a missing, skipped or unreadable result as a failure, never as a pass.
+- Keep your work when a run stops, is rejected or is interrupted.
+- Apply fixed limits to run time, output size and correction attempts, so a run always ends.
+- Run entirely on your machine. It needs no hosted SureForgeTech service and works with the coding and review tools you choose.
+
+SureForge Agent does not:
+
+- Merge code. A person, and your repository host's own rules, decide what is merged.
+- Include an AI model, AI credits or a hosted dashboard.
+- Run a coding loop unattended or retry by itself.
+- Pick or route between AI models for you.
+
+<Aside type="caution" title="Commands run as you">
+SureForge Agent is not a sandbox. The coder, check and reviewer run with your own user permissions, and its limits are cooperative rather than isolation. Use tools you trust, and work in a separate worktree on a branch that is not protected.
+</Aside>
+
+## What you need
+
+- A Mac or a Linux computer.
+- Git, and a supported long-term-support release of Node.js (version 22 or 24) with npm.
+- A command-line coding agent and a review tool, installed and signed in separately. You can use different providers, or a model running on your own machine.
+- A Git repository with a validation command that matches what your project requires before merging.
+- A GitHub repository, only if you want SureForge Agent to open pull requests for you. Every other step works without GitHub.
+
+Windows is not supported in the developer preview.
+
+## Commands
+
+You use SureForge Agent through one command, `sureforge`. The main subcommands are:
+
+| Command | What it does |
+| --- | --- |
+| `sureforge contract` | Proposes a work contract for your repository. Read-only. |
+| `sureforge doctor` | Checks your setup, a contract or your stored run reports. Read-only. |
+| `sureforge run` | Previews or runs one supervised task: coding, checks, then review. |
+| `sureforge deliver` | Commits, pushes and opens one pull request for an approved result. Never merges. |
+| `sureforge metrics` | Summarizes past runs in a repository. |
+| `sureforge help` | Shows usage and the installed version. |
+
+Before a run or a delivery makes any change, you can preview it, and it waits for your explicit go-ahead.
+
+## Developer preview
+
+The developer preview covers the full single-task flow above, from contract to pull request, on macOS and Linux. It is shared privately: there is no public download or package yet.
+
+Future releases may add public packages, support for more platforms and code hosts, and optional automation for working through a stream of tasks. These are not commitments, and SureForge Agent will keep handing the final decision to a person.
+
+## Get access
+
+To ask about the developer preview, or to share feedback, [contact SureForgeTech](/support/).

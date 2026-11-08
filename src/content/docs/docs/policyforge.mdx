@@ -1,6 +1,120 @@
 ---
 title: SureForge Policy
-description: Security and compliance automation for cloud environments.
+description: Overview of SureForge Policy, a self-hosted platform that gathers evidence from your security tools, maps it to controls and prepares findings, SSPs, OSCAL 1.1.3 exports and RMF assessment packages.
 ---
 
-SureForge Policy is a proprietary security and compliance automation platform that aggregates evidence from security tools, evaluates controls, and prepares findings and assessment artifacts, including OSCAL 1.1.3 exports. It can import SureForge Agent run reports and delivery journals as evidence, recorded as operator diagnostics rather than signed attestations. Product documentation is in preparation.
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+SureForge Policy is a security and compliance automation platform for cloud and AWS GovCloud environments. It collects evidence from the security tools you already run, maps that evidence to controls, and prepares the artifacts an assessment asks for: findings, system security plans (SSPs), OSCAL 1.1.3 exports and RMF assessment packages. Everything is built from one shared record of evidence, instead of from hand-maintained spreadsheets.
+
+Inside the application and its command line, the product is called **Policy Forge** (`policy-forge`).
+
+SureForge Policy is proprietary software that you run in your own environment. It is not a hosted service.
+
+<Aside type="caution" title="It prepares for an assessment; it does not replace one">
+SureForge Policy helps you organize evidence and prepare artifacts. It is not FedRAMP authorized or certified, it does not grant an authorization, and using it does not make a system compliant. Readiness indicators in the product are review signals, not authorization decisions. Assessors and authorizing officials still make those calls.
+</Aside>
+
+## Who it is for
+
+| Role | What they use it for |
+| :--- | :--- |
+| **Security engineers** | Review findings with severity, control mapping and resource context; record dispositions such as false positive or accepted risk; track remediation. |
+| **ISSOs and compliance staff** | Work a daily queue of findings, POA&M items and evidence requests; track control coverage; manage SSP versions and assessments. |
+| **System owners and administrators** | Set up organizations, authorization boundaries and cloud accounts; choose frameworks and baselines; manage users and roles. |
+| **Assessors and authorizing officials** | Review whether a package is complete, which evidence is missing or stale, and which findings, POA&M items, waivers and risk acceptances remain open. |
+
+## Key ideas
+
+- **Authorization boundary**: the system you are documenting. Dashboards and exports are always scoped to a boundary.
+- **Evidence**: results that arrive from your security tools. Evidence is append-only: once ingested, it is not edited or deleted.
+- **Controls and framework packs**: the requirements evidence is measured against. Frameworks ship as signed packs that pin their content and version.
+- **Findings**: the result of scoring evidence against controls. Duplicate results from the same source, control and resource collapse into one finding.
+- **POA&M items**: plans of action and milestones, each linked back to a finding and an enrollment, with owners and due dates.
+- **Waivers and risk acceptances**: recorded exceptions. They are kept separate from remediation and do not close a finding by themselves.
+- **Assessments and packages**: assessments collect results for a boundary; packages bundle the artifacts and records an authorization review needs.
+
+## How it works
+
+<Steps>
+
+1. **Create a boundary.** Set up your organization, authorization boundary and first enrollment in a compliance program.
+2. **Connect an evidence source.** Configure an integration for one of your security tools. Credentials are stored through the product's credential vault, not in notes or descriptions.
+3. **Bring in evidence.** Run a connector sync or submit scanner results. SureForge Policy creates evidence, resource and finding records from that real data only.
+4. **Review posture.** Dashboards separate recorded facts from interpretation and from missing data. Each number links back to the records behind it, and missing evidence stays visible.
+5. **Plan remediation.** Open a finding and create the related POA&M item with an owner and due date. Status changes are written to an audit history.
+6. **Prepare the review.** Check package completeness and missing artifacts, then generate the SSP and export the package.
+
+</Steps>
+
+A new installation starts empty. It does not create sample scans, findings or dashboard figures, so every result you see comes from data you brought in.
+
+## Evidence sources
+
+SureForge Policy does not run scanners against your environment itself. It takes in results from tools you already use, in three ways:
+
+- **Pull connectors** for AWS Security Hub, Azure DevOps Security, Bitbucket Security, CrowdStrike, GitHub Advanced Security, GitLab Security, Tenable, and software bills of materials (SBOMs) discovered in OCI container registries.
+- **Push ingestion** for Snyk and SonarQube results.
+- **The Scanner SDK and ingestion API**, which let any other scanner push its results into the same evidence model.
+
+Each connector needs its own configuration, credentials and review in your environment. Installing the product does not switch any of them on.
+
+### SureForge Agent run records
+
+SureForge Policy can import the run report and delivery journal that a SureForge Agent run produces, as evidence about how a code change was made: whether it had a work contract, passed validation, was independently reviewed and was delivered for a human to merge. These claims map to a small set of NIST SP 800-218 (SSDF) tasks. Imported records count toward readiness like other evidence and are labeled as operator diagnostics.
+
+<Aside type="note">
+These records are recorded as operator diagnostics, not signed attestations. SureForge Policy checks that the report and journal agree with each other, but it does not authenticate who wrote them. Every imported row carries that label.
+</Aside>
+
+## Frameworks
+
+Bundled framework packs cover:
+
+- FedRAMP Rev. 5 Low, Moderate and High baselines (156, 323 and 410 controls)
+- NIST SP 800-53 Rev. 5 (a starter subset)
+- NIST SP 800-218 SSDF v1.1 (a starter subset)
+- SLSA v1.0 Build Track
+- CMMC 2.0
+- ISO/IEC 27001:2022
+- PCI DSS 4.0.1
+- SOC 2 Trust Services Criteria
+- HIPAA Security Rule
+- StateRAMP Moderate
+
+Many of these packs are starter subsets or contain summaries and mappings written for the product, not the full text of the official standard. Having a pack does not mean an organization meets that standard; you remain responsible for scope, applicability and assessor expectations. When you need a complete catalog, you can import one in OSCAL format.
+
+## What you get out
+
+- **System security plans (SSPs)**, with versions and an approval workflow.
+- **OSCAL 1.1.3 exports**, for use with OSCAL-aware assessment and GRC tools.
+- **RMF assessment packages**, exported as a single archive. Check package completeness and missing artifacts before you export.
+- **POA&M tracking**, with service-level due dates and ownership.
+- **eMASS-oriented exports** for a boundary: a POA&M CSV, a control test results CSV, and a bundle ZIP.
+
+Exports contain only records that exist in your installation.
+
+## Ways to work with it
+
+- A **web interface** for day-to-day work, with dense, filterable tables.
+- A **command line** (`policy-forge`) for the same records, for example `policy-forge package export <package-id> --output ./package.zip`.
+- A **REST API**, with generated Python and TypeScript client libraries.
+
+If you configure an approved AI provider, some writing fields offer **Suggest Text**: draft wording based on your current records. Suggestions are clearly labeled, are not evidence or authorization decisions, and are saved only if a person applies and saves them.
+
+## Deployment
+
+SureForge Policy runs as containers on Docker, Kubernetes or AWS ECS Fargate, including AWS GovCloud, backed by a PostgreSQL database. Container images can be loaded into an internal registry for environments without direct internet access.
+
+Connectors, identity providers, storage and network destinations are all set by the operator, and those choices decide where information is sent and kept.
+
+## What it is not
+
+- Not a hosted, multi-tenant service.
+- Not a full governance, risk and compliance (GRC) suite. It feeds evidence into those workflows.
+- Not an automatic fixer. It does not change your infrastructure; remediation is tracked, templated and ticketed for people to carry out.
+- Not a substitute for an assessor's or authorizing official's judgment.
+
+## Getting access
+
+SureForge Policy is not available for public download. To ask about access, an evaluation or how it could fit your environment, [contact support](/support/).

@@ -1,6 +1,92 @@
 ---
 title: SureForge Studio
-description: A workstation for coordinating coding-agent sessions.
+description: Overview of SureForge Studio, an early-development workstation for running coding agents across your repositories with isolated workspaces, edit approval, stop and resume, and a portable record of each task.
 ---
 
-SureForge Studio is an early-development, multi-repository workstation for coordinating agent sessions, including context, execution, audit trails, pausing, resuming, and handoff. Optional integration with the SureForge Agent runtime is planned and has not shipped.
+import { Aside } from '@astrojs/starlight/components';
+
+SureForge Studio is a personal workstation for directing coding agents across several repositories. It gives you one place to start an agent on a task, watch what it does, decide which of its edits to keep, and pick the work up again later, with a clear record of what happened.
+
+Studio does not try to be another coding agent. It runs existing agents in their own runtime and adds the parts they leave to you: a separate workspace for each task, an explicit decision before any edit is kept, and a record you can carry forward.
+
+<Aside type="caution" title="Early development">
+Studio is in early development and is not publicly available. There is no public download or install package yet. This page describes what works today and what is planned, so you can decide whether to follow its progress. Planned items have no dates and may change.
+</Aside>
+
+## Who it is for
+
+Studio is for developers who already use coding agents and want to:
+
+- run agent work on several repositories without losing track of which session is doing what, where;
+- keep agent edits away from their own checkout until they have reviewed them;
+- stop work, come back later, and continue without re-explaining everything;
+- see plainly what an agent changed and whether the checks passed, without the tool claiming more than it knows.
+
+It runs on your own machine for one person by default. Cloud services are optional extras, not a requirement.
+
+## Core ideas
+
+**Session.** A session is one agent working on one task. You choose the repository and describe the task; Studio starts the agent and streams its activity as it works.
+
+**Isolated workspace.** Each session works in its own Git worktree, a separate working copy of your repository. Your own checkout stays untouched while the agent works. Sessions in different worktrees of the same repository can run at the same time.
+
+**Edit approval.** When the agent has finished an edit, Studio shows you the changed files and the diff. You can:
+
+- approve it **once**, which commits the edit in the session's workspace;
+- approve it **for the task**, so later turns of the same task are approved too;
+- **deny** it, which undoes exactly the edit you reviewed and nothing else.
+
+You can also keep only some of the changed files and deny the rest.
+
+**Validation.** You can name your own check command, such as your test suite. Studio runs it once after an approved edit and records the result. A failure is recorded so you can resume from it; Studio does not retry on its own.
+
+**Stop and resume.** You can stop a running session. When you resume, Studio continues the agent's own session where that agent supports it; otherwise it starts a fresh turn and explains the task to the agent again.
+
+**Work record.** Every task has a work record: the repository, the workspace and the exact commits it was bound to, its current state, the approval decisions, the changed files, the validation result and a suggested next step. You can export it as a portable file. Values you declare for the session's environment are redacted from it, and the conversation itself is referenced rather than copied in. Studio also keeps a step-by-step audit log on your machine.
+
+**Honest status.** A work record is a record, not a certificate. If evidence is missing, out of date or cannot be checked, Studio shows it as unknown rather than as a success. Your repository host's own protections and checks always have the final say.
+
+## How you use it
+
+A typical task looks like this:
+
+1. Pick a repository and an agent, and describe the task.
+2. Watch the session's activity as the agent works in its own workspace.
+3. Review the diff when the agent finishes, then approve, approve selected files, or deny.
+4. Let your check command run, and read the result in the session.
+5. Stop and resume as needed, or export the work record to keep or share it.
+
+Studio also has a chat view with three access levels:
+
+- **Plan** reads the project and answers questions, or writes a plan, without editing files.
+- **Ask for approval** drafts changes as a diff for you to review and apply.
+- **Full access** lets the agent edit the conversation's workspace directly, where direct editing is turned on. You can still keep or discard the result.
+
+For a project hosted on GitHub, a Ship section lets you commit the conversation's changes, open a pull request, push updates and re-run failed checks. For other projects you can keep the changes as a local commit or discard them.
+
+## What works today
+
+- Sessions with two coding agents, Codex and Claude Code, through a local web interface and a command line.
+- A separate workspace for each session, with several sessions able to run on one repository at once.
+- Writing is switched off until you turn it on. While it is off, starting a session is refused and nothing in your repository changes.
+- Approve once, approve for the task, deny, or approve selected files.
+- Your own check command, run once after an approved edit.
+- Stop, and resume that continues the agent's own session where the agent supports it.
+- Exporting a work record. Importing a record checks it and shows what it describes, but does not start a new session yet.
+- macOS and Linux. Agent sessions are not yet supported on Windows.
+
+Some parts are still partial. For example, edits are the only kind of action you can approve today, and the desktop app does not yet use the new session view.
+
+## Planned
+
+These are directions, not commitments, and none of them has shipped:
+
+- Approvals for more kinds of action, such as running commands, network access, commits and pushes, each with once, task or deny.
+- Handing a task from one agent to a different agent with a structured handoff, so the next agent starts in the right workspace without you re-explaining it.
+- More agents, each added only after it has been tested with Studio, including local models.
+- An optional integration with the SureForge Agent runtime, where Studio could start, watch, stop and record a SureForge run. Studio is designed to work fully without it.
+- A signed desktop app, public packages, and Windows support.
+
+## Follow progress or ask about access
+
+Studio is not available to download. To ask about access, give feedback, or follow its progress, contact us through [Support](/support/).

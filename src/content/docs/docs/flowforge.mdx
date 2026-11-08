@@ -1,6 +1,97 @@
 ---
 title: SureForge Flow
-description: A platform for building and running multi-tenant applications.
+description: What SureForge Flow is, how its tenants, applications and two planes fit together, and what is available today versus still in development.
 ---
 
-SureForge Flow is a multi-tenant application platform with control and runtime planes, tenant and application metadata, deployment management, and SSO support. Some capabilities remain in development, including durable audit logging and attachment storage. Templates for HIPAA-sensitive applications apply stricter defaults; this is not a compliance certification.
+import { Aside } from '@astrojs/starlight/components';
+
+SureForge Flow is a platform for building and running multi-tenant business applications. Teams describe an application (its data, screens, roles and workflows) as metadata, start from a template, and deploy it for their own users without writing a separate app for each need.
+
+<Aside type="caution" title="In development">
+SureForge Flow is deployable server software that is still in development. Some capabilities described below are complete, and some are part of the design but not finished. This page says which is which.
+</Aside>
+
+## Who it is for
+
+- **Platform administrators** who run SureForge Flow for an organization and manage who can build and operate applications.
+- **Builders** who create applications from templates, adjust them, and publish and deploy them.
+- **Application users** (staff, requesters, members or patients) who sign in to a deployed application to do their work.
+
+## Core concepts
+
+### Tenants
+
+A tenant is an organization's own space on the platform. Applications, platform memberships and settings are kept per tenant, so one tenant's administrators cannot affect another tenant's applications.
+
+### Control plane and runtime plane
+
+SureForge Flow has two parts with separate jobs:
+
+- **The control plane** is where builders and administrators work. It holds the tenant directory and application metadata, handles drafting, publishing and deployment, and manages platform users.
+- **The runtime plane** runs the deployed applications. It shows each application's screens, runs its workflows and enforces its access rules.
+
+### Two kinds of users
+
+Access is kept separate on purpose:
+
+- **Platform users** sign in to the control plane. Their platform role (Tenant Viewer, Tenant Operator or Tenant Admin) sets what they can do there. Only a Tenant Admin can manage other platform users.
+- **Application users** sign in to one deployed application. That application decides who has access and which screens, actions and workflow steps each role may use.
+
+Being a platform user does not make someone an application user, and the reverse is also true. The same person can have both, but each must be granted separately. To invite people to a deployed application, use that application's own user management, not the control plane.
+
+### Templates
+
+Templates are ready-made starting points for common applications, including customer support, service and request intake, incident and change management, project tracking, field service work orders and knowledge bases. Each template is marked with a tier:
+
+- **Robust**: a strong starter that you expect to tailor.
+- **Demo-ready**: a robust template that also includes made-up sample data for a convincing first run.
+
+When you create an application from a template you choose how much sample data to load: none (a clean start), a standard starter set, or a fuller set of example scenarios. Sample data is only loaded into an empty application, so it never overwrites real records.
+
+### Templates for sensitive health data
+
+Applications can be marked as standard, regulated or HIPAA-sensitive, and data can be classified down to individual fields. Templates for HIPAA-sensitive applications apply stricter defaults, for example hiding fields marked as protected health information from non-admin roles unless the application explicitly allows it.
+
+<Aside type="note" title="Not a compliance certification">
+Stricter defaults help, but they are not a compliance certification. Whether a deployment meets any regulation depends on how it is configured and operated by the organization running it.
+</Aside>
+
+## How you use it
+
+1. **Pick a template.** Browse the template catalog in your tenant and compare what each one includes.
+2. **Create a draft.** Use the one-step quick start, or customize the name and sample-data choice first. The draft stays editable.
+3. **Publish.** Publishing saves a fixed, numbered version of the application's design.
+4. **Deploy.** Deploying makes a published version live at a stable address. Publishing and deploying are separate steps, so you can review a version before it goes live.
+5. **Hand off access.** Invite application users from inside the deployed application.
+
+Applications can later be archived (kept but moved out of the active list), removed (hidden but kept for history) and restored. An application cannot be removed while it still has an active or pending deployment.
+
+### Sign-in and SSO
+
+Both planes support their own sign-in and single sign-on (SSO). SSO works through a trusted sign-in gateway that your organization places in front of the platform; it is not a built-in OIDC or SAML connection. Users must already exist on the platform before they can sign in through SSO. Each plane can allow local sign-in, SSO, or both.
+
+## What is available today
+
+- Tenants, the control plane and the runtime plane
+- Application metadata with draft, publish and deploy steps
+- Deployment management and application lifecycle (archive, remove, restore)
+- The template catalog with sample-data choices
+- Separate access management for platform users and application users, with role-based access inside each application
+- SSO through a trusted sign-in gateway
+- Data classification and stricter defaults for HIPAA-sensitive templates
+
+## Optional features
+
+- **AI mode.** Optional AI assistance where you choose and supply the model. It is off unless an administrator turns it on.
+- **Optional PostgreSQL persistence.** Keeping platform data in a PostgreSQL database instead of only in memory, when an administrator configures it.
+
+## Still in progress
+
+- **Durable audit logging.** Keeping a lasting audit trail for activity inside deployed applications.
+- **Attachment storage.** Lasting storage for files attached to records.
+
+These items have no committed dates.
+
+## Getting access
+
+To evaluate SureForge Flow or ask about access, please contact us through the [support page](/support/).
