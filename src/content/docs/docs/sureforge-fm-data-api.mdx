@@ -17,7 +17,7 @@ The extension is MIT-licensed and collects no telemetry. There is no account to 
 - **VS Code 1.96 or newer** on macOS, Windows or Linux, with a folder open. Saved queries, schema snapshots, generated types and the offline cache are stored in that folder. Virtual workspaces such as github.dev are not supported.
 
 <Aside type="caution">
-FileMaker Cloud sign-in with a Claris ID is not supported, and FileMaker Cloud is untested. The project's [compatibility notes](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/extension/docs/COMPATIBILITY.md) list which FileMaker Server versions are expected to work and what has and has not been tested.
+FileMaker Cloud sign-in with a Claris ID is not supported, and FileMaker Cloud is untested. The project's [compatibility notes](https://github.com/SureForgeTech/sureforge-fm-data-api/blob/main/extension/docs/COMPATIBILITY.md) list which FileMaker Server versions are expected to work and what has and has not been tested.
 </Aside>
 
 Use a dedicated FileMaker account with only the access you need. A FileMaker privilege set is the one limit that holds no matter what the extension, an AI tool or you do.
@@ -32,7 +32,7 @@ Use a dedicated FileMaker account with only the access you need. A FileMaker pri
 
 </Steps>
 
-You can also install from a terminal with `code --install-extension SureForgeTech.filemaker-data-api-tools`, or open the [Marketplace listing](https://marketplace.visualstudio.com/items?itemName=SureForgeTech.filemaker-data-api-tools). To install a specific version, download the `.vsix` file from the [GitHub releases](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/releases) and run **Extensions: Install from VSIX...**. A VSIX install does not update itself.
+You can also install from a terminal with `code --install-extension SureForgeTech.filemaker-data-api-tools`, or open the [Marketplace listing](https://marketplace.visualstudio.com/items?itemName=SureForgeTech.filemaker-data-api-tools). To install a specific version, download the `.vsix` file from the [GitHub releases](https://github.com/SureForgeTech/sureforge-fm-data-api/releases) and run **Extensions: Install from VSIX...**. A VSIX install does not update itself.
 
 For a guided tour, run **FileMaker: Open Getting Started Walkthrough**. The full manual opens with **FileMaker: Open User Guide**.
 
@@ -159,14 +159,14 @@ FM Web is an **experimental** workflow for designing web layouts on top of your 
 </Steps>
 
 <Aside type="note">
-Generating and previewing a Next.js app (**Generate FM Web Next.js App** and **Start FM Web Preview Server**) needs a clone of the [source repository](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code). The Marketplace package does not include the app template, so those commands are hidden there. Layout Mode and metadata sync work in every installation.
+Generating and previewing a Next.js app (**Generate FM Web Next.js App** and **Start FM Web Preview Server**) needs a clone of the [source repository](https://github.com/SureForgeTech/sureforge-fm-data-api). The Marketplace package does not include the app template, so those commands are hidden there. Layout Mode and metadata sync work in every installation.
 </Aside>
 
 ## AI tools (off by default)
 
 The extension can give AI tools in VS Code, the `@filemaker` chat participant (read only) and MCP clients such as Claude Code or Cursor access to one connection. All of this is off until you turn on `filemaker.ai.enabled` in your **user** settings and pick a connection with **FileMaker: Set AI Access for Connection**. Writes and scripts need further switches, every write asks you in a dialog, and usage is capped per session.
 
-Anything an AI tool reads is sent to the AI model provider you chose. Connect with a FileMaker account that has a read-only privilege set. See [Using AI with FileMaker](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/extension/docs/USER_GUIDE.md#using-ai-with-filemaker) before you switch it on.
+Anything an AI tool reads is sent to the AI model provider you chose. Connect with a FileMaker account that has a read-only privilege set. See [Using AI with FileMaker](https://github.com/SureForgeTech/sureforge-fm-data-api/blob/main/extension/docs/USER_GUIDE.md#using-ai-with-filemaker) before you switch it on.
 
 ## Useful settings
 
@@ -191,7 +191,7 @@ A repository's workspace settings can make the extension stricter, for example b
 - **Stored locally:** connection profiles (without passwords) in VS Code's extension state; saved queries, history and schema snapshots in workspace state or workspace files. Schema snapshots, saved queries and the offline cache are not encrypted and contain internal names, so keep them out of public repositories.
 - **Risky actions ask first,** including deletes, batch updates, scripts from FM Web layouts and running workspace plugins.
 
-The project's [data handling notes](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/docs/DATA_HANDLING.md), [security overview](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/docs/security.md) and [privacy policy](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/PRIVACY.md) have the full detail.
+The project's [data handling notes](https://github.com/SureForgeTech/sureforge-fm-data-api/blob/main/docs/DATA_HANDLING.md), [security overview](https://github.com/SureForgeTech/sureforge-fm-data-api/blob/main/docs/security.md) and [privacy policy](https://github.com/SureForgeTech/sureforge-fm-data-api/blob/main/PRIVACY.md) have the full detail.
 
 ## Troubleshooting
 
@@ -210,19 +210,19 @@ Start with **Test Connection** in the wizard; it names the step that failed. **F
 | A find returns nothing | No records match (FileMaker code 401). This is not the same as HTTP 401. |
 | Error 306 on save | Someone changed the record since you loaded it. Reload and make your change again. |
 
-The [troubleshooting guide](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/extension/docs/TROUBLESHOOTING.md) covers each error with its symptom, cause and fix.
+The [troubleshooting guide](https://github.com/SureForgeTech/sureforge-fm-data-api/blob/main/extension/docs/TROUBLESHOOTING.md) covers each error with its symptom, cause and fix.
 
 ## Get help
 
-- Source, documentation and releases: [github.com/SureForgeTech/filemaker-data-api-for-vs-code](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code)
-- Bug reports and feature requests: [GitHub issues](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/issues). Include the version from **FileMaker: About / Show Version** and the output of **FileMaker: Show Diagnostics**, with secrets and private details removed.
-- Security vulnerabilities: do not post them in a public issue. Follow the project's [security policy](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/SECURITY.md).
+- Source, documentation and releases: [github.com/SureForgeTech/sureforge-fm-data-api](https://github.com/SureForgeTech/sureforge-fm-data-api)
+- Bug reports and feature requests: [GitHub issues](https://github.com/SureForgeTech/sureforge-fm-data-api/issues). Include the version from **FileMaker: About / Show Version** and the output of **FileMaker: Show Diagnostics**, with secrets and private details removed.
+- Security vulnerabilities: do not post them in a public issue. Follow the project's [security policy](https://github.com/SureForgeTech/sureforge-fm-data-api/blob/main/SECURITY.md).
 - Other questions: [Support](/support/)
 
 Support is best effort, with no guaranteed response or fix time. Never paste passwords, session tokens or API keys into an issue.
 
 ## License
 
-SureForge FM Data API is licensed under the [MIT License](https://github.com/SureForgeTech/filemaker-data-api-for-vs-code/blob/main/LICENSE).
+SureForge FM Data API is licensed under the [MIT License](https://github.com/SureForgeTech/sureforge-fm-data-api/blob/main/LICENSE).
 
 Claris and FileMaker are trademarks of Claris International Inc., registered in the U.S. and other countries. This extension is independent and is not affiliated with or endorsed by Claris.
