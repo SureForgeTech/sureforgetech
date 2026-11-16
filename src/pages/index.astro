@@ -7,36 +7,27 @@ import { products } from '../data/portfolio.js';
     <section class="hero" id="top" aria-labelledby="hero-heading">
       <div class="shell hero-layout">
         <div class="hero-copy">
-          <p class="eyebrow"><span class="small-rule"></span> THE SUREFORGE FAMILY</p>
-          <h1 id="hero-heading">Tools for people<br>who <em>build.</em></h1>
-          <p class="hero-lead">SureForge is the software product family from SureForgeTech. From AI coding agents to everyday developer tools, build, plan, secure, and run what comes next.</p>
-          <div class="hero-actions"><a class="button button-primary" href="#products">Meet the products <span aria-hidden="true">↗</span></a><a class="quiet-link" href="#about">Get to know SureForgeTech <span aria-hidden="true">→</span></a></div>
-          <p class="hero-footnote">Native apps. Developer tools. Team platforms.</p>
+          <p class="eyebrow"><span class="small-rule"></span> SUREFORGETECH · POLICY FORGE</p>
+          <h1 id="hero-heading">Governed AI for <em>regulated teams.</em></h1>
+          <p class="hero-lead">SureForgeTech builds governed AI for regulated teams. Our flagship, Policy Forge, pulls evidence from existing security tools, maps it to each compliance requirement, and drafts cited updates a named person approves. Built for federal audits, runs air-gapped.</p>
+          <div class="hero-actions"><a class="button button-primary" href="mailto:alan@sureforgetech.com?subject=Policy%20Forge%20demo">Request a demo</a><a class="quiet-link" href="/products/policyforge/">Learn about Policy Forge <span aria-hidden="true">→</span></a></div>
+          <p class="hero-footnote">Evidence linked to controls. Every AI step reviewed and logged.</p>
         </div>
         <section class="hero-tools" aria-labelledby="hero-tools-heading">
-          <h2 class="tools-heading" id="hero-tools-heading">Software for the work you do.</h2>
+          <h2 class="tools-heading" id="hero-tools-heading">How Policy Forge works</h2>
           <div class="tool-purpose">
-            <div class="purpose-copy"><h3>Build with AI.</h3><p>Code and coordinate<br>across repositories.</p></div>
+            <div class="purpose-copy"><h3>Collect.</h3><p>Pull evidence from the security tools you already run.</p></div>
             <div class="purpose-apps">
-              <button class="hero-product" data-product="sureforge" aria-label="Discover SureForge Agent"><span class="app-icon" style="--icon-x:17" aria-hidden="true"></span><span>Agent</span></button>
-              <button class="hero-product" data-product="studio" aria-label="Discover SureForge Studio"><span class="app-icon" style="--icon-x:112" aria-hidden="true"></span><span>Studio</span></button>
+              <button class="hero-product" data-product="policyforge" aria-label="Discover Policy Forge"><span class="app-icon" style="--icon-x:209" aria-hidden="true"></span><span>Policy Forge</span></button>
             </div>
           </div>
           <div class="tool-purpose">
-            <div class="purpose-copy"><h3>Test &amp; secure.</h3><p>Capture issues.<br>Organize security evidence.</p></div>
-            <div class="purpose-apps">
-              <button class="hero-product" data-product="bugnarrator" aria-label="Discover SureForge Capture"><span class="app-icon" style="--icon-x:403" aria-hidden="true"></span><span>Capture</span></button>
-              <button class="hero-product" data-product="policyforge" aria-label="Discover SureForge Policy"><span class="app-icon" style="--icon-x:209" aria-hidden="true"></span><span>Policy</span></button>
-            </div>
+            <div class="purpose-copy"><h3>Map.</h3><p>Link each piece of evidence to the compliance requirement it supports.</p></div>
           </div>
           <div class="tool-purpose">
-            <div class="purpose-copy"><h3>Connect &amp; run.</h3><p>Manage remote hosts.<br>Build multi-tenant apps.</p></div>
-            <div class="purpose-apps">
-              <button class="hero-product" data-product="terminal-workspace" aria-label="Discover SureForge Terminal"><span class="app-icon" style="--icon-x:501" aria-hidden="true"></span><span>Terminal</span></button>
-              <button class="hero-product" data-product="flowforge" aria-label="Discover SureForge Flow"><span class="app-icon" style="--icon-x:799" aria-hidden="true"></span><span>Flow</span></button>
-            </div>
+            <div class="purpose-copy"><h3>Approve.</h3><p>AI drafts cited updates. A named person approves each one, and every step is logged.</p></div>
           </div>
-          <a class="tools-catalog-link" href="#products">Explore all nine products <span aria-hidden="true">↗</span></a>
+          <a class="tools-catalog-link" href="#products">See all products <span aria-hidden="true">→</span></a>
         </section>
       </div>
     </section>
@@ -44,35 +35,59 @@ import { products } from '../data/portfolio.js';
     <section class="portfolio" id="products" aria-labelledby="products-heading">
       <div class="shell">
         <div class="section-heading">
-          <div><p class="eyebrow">NINE PRODUCTS. DISTINCT POSSIBILITIES.</p><h2 id="products-heading">Find your next tool.</h2></div>
-          <p>Each with a clear purpose.<br> All part of the SureForge family.</p>
+          <div><p class="eyebrow">PRODUCTS</p><h2 id="products-heading">Our products.</h2></div>
         </div>
-        <div class="catalog-toolbar">
-          <div class="filters" role="group" aria-label="Filter products">
-            <button class="filter active" data-filter="all" aria-pressed="true">All products <span>9</span></button>
-            <button class="filter" data-filter="build" aria-pressed="false">Build &amp; automate</button>
-            <button class="filter" data-filter="team" aria-pressed="false">Plan &amp; secure</button>
-            <button class="filter" data-filter="daily" aria-pressed="false">Everyday tools</button>
-          </div>
-          <p class="result-count" id="result-count" aria-live="polite">9 products</p>
+        <div class="featured-products">
+          <article class="product-card featured-product featured-policy" aria-labelledby="policyforge-heading">
+            <div class="product-card-main"><div class="card-top"><span class="app-icon" role="img" aria-label="Policy Forge app icon" style="--icon-x:209"></span><span class="product-status">Working product</span></div>
+              <h3 id="policyforge-heading">Policy Forge</h3><p class="product-kind">Governed AI for security compliance</p>
+              <ul class="product-benefits">
+                <li>Links evidence from your existing security tools to each control.</li>
+                <li>Governed AI: drafts cite their sources, a named person approves each update, and every step goes into an audit log.</li>
+                <li>Exports to OSCAL, DoD eMASS and CSV.</li>
+                <li>Runs in your own environment, including AWS GovCloud and air-gapped networks.</li>
+                <li>AI can be locked to FedRAMP-authorized providers, such as AWS Bedrock in GovCloud, or to self-hosted models.</li>
+              </ul>
+            </div>
+            <div class="product-card-footer featured-actions"><a class="button button-primary" href="mailto:alan@sureforgetech.com?subject=Policy%20Forge%20demo">Request a demo</a><a class="quiet-link" href="/products/policyforge/">Learn about Policy Forge <span aria-hidden="true">→</span></a></div>
+          </article>
+          <article class="product-card featured-product" aria-labelledby="sureforge-heading" style="--accent:#9a6026;--tint:#f6ead7">
+            <div class="product-card-main"><div class="card-top"><span class="app-icon" role="img" aria-label="SureForge app icon" style="--icon-x:17"></span><span class="product-status">Developer preview</span></div>
+              <h3 id="sureforge-heading">SureForge</h3><p class="product-kind">Supervised AI coding</p>
+              <ul class="product-benefits">
+                <li>Bounded work contracts for coding agents.</li>
+                <li>Independent review of every change.</li>
+                <li>Recorded decisions for each run.</li>
+              </ul>
+            </div>
+            <div class="product-card-footer featured-actions"><a class="quiet-link" href="/products/sureforge/">Learn about SureForge <span aria-hidden="true">→</span></a></div>
+          </article>
         </div>
-        <div class="product-grid" id="product-grid">{products.map(product => <article class="product-card" data-group={product.group} style={`--accent:${product.accent};--tint:${product.tint}`} aria-labelledby={`title-${product.id}`}>
+        <section class="developer-tools" aria-labelledby="developer-tools-heading">
+          <div class="section-heading"><div><p class="eyebrow">DEVELOPER TOOLS</p><h2 id="developer-tools-heading">Also from SureForgeTech</h2></div></div>
+        <div class="product-grid" id="product-grid">{products.filter(product => !['policyforge', 'sureforge'].includes(product.id)).map(product => <article class="product-card product-card-compact" data-group={product.group} style={`--accent:${product.accent};--tint:${product.tint}`} aria-labelledby={`title-${product.id}`}>
 <div class="product-card-main"><div class="card-top"><span class="app-icon" role="img" aria-label={`${product.name} app icon`} style={`--icon-x:${product.icon}`}></span><span class="product-status">{product.status}</span></div>
 <p class="product-family">SUREFORGE</p><h3 id={`title-${product.id}`}>{product.name}</h3><p class="product-kind">{product.kind}</p><p class="product-description">{product.summary}</p></div>
 <div class="product-card-footer"><span class="product-platform">{product.platform}</span><button class="explore-product" data-product={product.id} aria-label={`Explore SureForge ${product.name}`}>Explore <span aria-hidden="true">→</span></button></div>
 </article>)}</div>
+        </section>
         <noscript><p>Browse <a href="/docs/">product documentation</a> for details about the SureForge family.</p></noscript>
         <p class="availability-note">A growing family, at different stages. Availability and licensing are shown for each product.</p>
       </div>
     </section>
 
-    <section class="approach shell" id="about" aria-labelledby="about-heading">
-      <div class="approach-title"><p class="eyebrow">INDEPENDENT TOOLS. A SHARED APPROACH.</p><h2 id="about-heading">Your workstation.<br>Your workflow.<br><em>Your next idea.</em></h2></div>
-      <div class="approach-copy"><p class="large-copy">Good tools should make the work clearer.</p><p>SureForgeTech builds software for individual makers and engineering teams. Some tools live on your Mac. Others work inside the editor or planning system you already use. Some help you run applications on your own infrastructure.</p><p>The common thread is practical utility: a focused job, a clear workflow, and people in control.</p><div class="approach-links"><a href="/products/sureforge/">Explore SureForge Agent <span aria-hidden="true">→</span></a><a href="https://github.com/SureForgeTech" target="_blank" rel="noopener">Find us on GitHub <span aria-hidden="true">↗</span></a></div></div>
+    <section class="approach shell" id="impact" aria-labelledby="impact-heading">
+      <div class="approach-title"><p class="eyebrow">WHO IT HELPS</p><h2 id="impact-heading">Less evidence chasing. <em>Audit-ready records.</em></h2></div>
+      <div class="approach-copy"><p class="large-copy">Compliance and security teams spend less time collecting evidence by hand.</p><p>They get audit-ready records, with every AI step reviewed by a person and logged.</p></div>
     </section>
 
-    <section class="resources" aria-labelledby="resources-heading">
-      <div class="shell resources-layout"><div><p class="eyebrow">TAKE THE NEXT STEP</p><h2 id="resources-heading">Find your footing.<br>Then get building.</h2></div><div class="resource-links"><a href="https://sureforgetech.com/docs/" target="_blank" rel="noopener"><span><strong>Documentation</strong><small>Guides for the SureForge product family.</small></span><span aria-hidden="true">↗</span></a><a href="https://sureforgetech.com/support/" target="_blank" rel="noopener"><span><strong>Product support</strong><small>Find the right help for your workflow.</small></span><span aria-hidden="true">↗</span></a></div></div>
+    <section class="approach shell" id="about" aria-labelledby="about-heading">
+      <div class="approach-title"><p class="eyebrow">FOUNDER</p><h2 id="about-heading">Alan Deffenderfer</h2></div>
+      <div class="approach-copy"><p class="large-copy">Alan Deffenderfer, founder (full time).</p><p>Alan is a federal cloud security and compliance practitioner. He previously worked with many groups at a large U.S. federal systems integrator on NIST RMF and FedRAMP authorizations and secure delivery. He built Policy Forge and SureForge.</p><p class="detail-note">Policy Forge has been demoed to the CISO and CTO of a large U.S. federal systems integrator and to security officers and system owners.</p></div>
+    </section>
+
+    <section class="resources" id="contact" aria-labelledby="resources-heading">
+      <div class="shell resources-layout"><div><p class="eyebrow">CONTACT</p><h2 id="resources-heading">Talk to us.</h2></div><div class="resource-links"><a href="mailto:alan@sureforgetech.com?subject=Policy%20Forge%20demo"><span><strong>Email alan@sureforgetech.com</strong><small>Request a Policy Forge demo.</small></span><span aria-hidden="true">→</span></a><a href="https://sureforgetech.com/docs/" target="_blank" rel="noopener"><span><strong>Documentation</strong><small>Guides for the SureForge product family.</small></span><span aria-hidden="true">↗</span></a><a href="https://sureforgetech.com/support/" target="_blank" rel="noopener"><span><strong>Product support</strong><small>Find the right help for your workflow.</small></span><span aria-hidden="true">↗</span></a></div></div>
     </section>
 
   <dialog id="product-dialog" aria-labelledby="detail-title">
