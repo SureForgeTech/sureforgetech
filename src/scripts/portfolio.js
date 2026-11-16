@@ -6,7 +6,8 @@ document.querySelectorAll('.filter').forEach(button => button.addEventListener('
   document.querySelectorAll('.filter').forEach(filter => { const active = filter === button; filter.classList.toggle('active', active); filter.setAttribute('aria-pressed', String(active)); });
   let count = 0;
   document.querySelectorAll('.product-card').forEach(card => { card.hidden = group !== 'all' && card.dataset.group !== group; if (!card.hidden) count++; });
-  document.querySelector('#result-count').textContent = `${count} product${count === 1 ? '' : 's'}`;
+  const resultCount = document.querySelector('#result-count');
+  if (resultCount) resultCount.textContent = `${count} product${count === 1 ? '' : 's'}`;
 }));
 
 document.querySelector('main').addEventListener('click', event => {
