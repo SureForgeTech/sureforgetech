@@ -1,6 +1,6 @@
 ---
 import '../styles/corporate.css';
-const { title = 'SureForgeTech — Governed AI for regulated teams', description = 'SureForgeTech builds governed AI for regulated teams. SureForge Policy pulls evidence from existing security tools, maps it to each compliance requirement, and drafts cited updates a named person approves.', structuredData = [] } = Astro.props;
+const { title = 'SureForgeTech — Governed AI for regulated teams', description = 'SureForgeTech builds governed AI for regulated teams. SureForge Policy (Policy Forge) pulls evidence from existing security tools, maps it to each compliance requirement, and drafts cited updates a named person approves.', structuredData = [] } = Astro.props;
 const site = 'https://sureforgetech.com';
 const publisher = { '@type': 'Organization', '@id': `${site}/#organization`, name: 'SureForgeTech', url: site, logo: `${site}/brand/logo-transparent.png`, sameAs: ['https://github.com/SureForgeTech'] };
 const schema = { '@context': 'https://schema.org', '@graph': [publisher, { '@type': 'WebSite', '@id': `${site}/#website`, name: 'SureForgeTech', alternateName: 'SureForge', url: site, publisher: { '@id': publisher['@id'] } }, ...structuredData] };
