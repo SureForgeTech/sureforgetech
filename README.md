@@ -20,8 +20,8 @@ SureForgeTech builds practical software for the people who make, ship, secure, a
 | [SureForge Trellis](https://sureforgetech.com/products/trellisforge/) | Jira Cloud app for editable work hierarchies, planning, saved views, and reporting, working through each person's own Jira permissions. | Product information in development |
 | [SureForge Capture (BugNarrator)](https://sureforgetech.com/products/bugnarrator/) | Local-first macOS narrated-testing app with searchable transcripts, screenshot timelines, and bug extraction. | Apache-2.0 · Free · macOS 14+ |
 | [SureForge Terminal](https://sureforgetech.com/products/terminal-workspace/) | Native macOS SSH client with SFTP, key and host trust management, snippets, and port forwarding. | Product information in development |
-| [SureForge FM Data API](https://sureforgetech.com/products/sureforge-fm-data-api/) | MIT-licensed VS Code extension for FileMaker Data API operations, schema, batch work, Layout Mode, and generated-app starters. | MIT · Free and open source |
-| [SureForge FM Snippets](https://sureforgetech.com/products/sureforge-fm-alfred/) | MIT-licensed Alfred snippets for FileMaker development on macOS. Requires Alfred Powerpack. | MIT · Free |
+| [SureForge FM Data API](https://sureforgetech.com/products/sureforge-fm-data-api/) | Apache-2.0-licensed VS Code extension for FileMaker Data API operations, schema, batch work, Layout Mode, and generated-app starters. | Apache-2.0 · Free and open source |
+| [SureForge FM Snippets](https://sureforgetech.com/products/sureforge-fm-alfred/) | Apache-2.0-licensed Alfred snippets for FileMaker development on macOS. Requires Alfred Powerpack. | Apache-2.0 · Free |
 | [SureForge Flow](https://sureforgetech.com/products/flowforge/) | Multi-tenant application platform with control/runtime planes, tenant metadata, deployment management, and SSO support. | In development |
 
 Product names may evolve. References to third-party products identify compatibility only and do not imply affiliation. Product capabilities and availability are described according to their current maturity.
