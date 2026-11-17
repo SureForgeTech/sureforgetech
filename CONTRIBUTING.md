@@ -9,11 +9,14 @@ open or comment on an issue first so we agree on the approach.
 
 Sign off every commit with `git commit -s`. This adds a `Signed-off-by:` line
 certifying the [Developer Certificate of Origin](https://developercertificate.org/):
-you wrote the change or have the right to submit it under the licence in this
-repository's `LICENSE` file, and your contribution comes under that licence. A
+you wrote the change or have the right to submit it, and you grant SureForgeTech
+the right to use it in this repository (the repository's `LICENSE` file covers the
+site as a whole). A
 check confirms the sign-off on pull requests from outside contributors. Every
 pull request gets review and must pass the required checks before a maintainer
 merges it.
+
+CodeRabbit (free open-source plan) may comment on pull requests. Its reviews are advice only and never required. On repositories with fewer than 10 stars it does not run on its own; comment `@coderabbitai review` to trigger it.
 
 For product copy corrections, include a link to an approved public source.
 
