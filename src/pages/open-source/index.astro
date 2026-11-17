@@ -1,0 +1,125 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+
+const gh = (repo) => `https://github.com/SureForgeTech/${repo}`;
+
+const projects = [
+  {
+    name: 'SureForge Capture',
+    repo: 'sureforge-capture',
+    kind: 'Narrated software testing',
+    platform: 'Apple silicon · macOS 14+',
+    license: 'Apache-2.0',
+    summary: 'A menu bar app for narrated testing sessions: transcripts, screenshot markers and extracted issues.',
+    install: 'brew install sureforgetech/tap/sureforge-capture',
+  },
+  {
+    name: 'SureForge Terminal',
+    repo: 'sureforge-terminal',
+    kind: 'Native macOS SSH client',
+    platform: 'Apple silicon · macOS 13+',
+    license: 'Apache-2.0',
+    summary: 'A local-first SSH client with sessions, SFTP, snippets, port forwarding, host trust and key tools.',
+    install: 'brew install sureforgetech/tap/sureforge-terminal',
+  },
+  {
+    name: 'SureForge FM Data API',
+    repo: 'sureforge-fm-data-api',
+    kind: 'FileMaker tools for VS Code',
+    platform: 'Visual Studio Code',
+    license: 'MIT',
+    summary: 'Work with the FileMaker Data API from VS Code: records, queries, schema and batch operations.',
+    store: { label: 'VS Code Marketplace', href: 'https://marketplace.visualstudio.com/items?itemName=SureForgeTech.filemaker-data-api-tools' },
+  },
+  {
+    name: 'SureForge FM Snippets',
+    repo: 'sureforge-fm-snippets',
+    kind: 'Alfred snippets',
+    platform: 'Alfred · macOS',
+    license: 'MIT',
+    summary: 'Alfred snippets for common FileMaker functions and syntax patterns. Unofficial; not affiliated with Claris.',
+  },
+  {
+    name: 'SureForge CFR',
+    repo: 'sureforge-cfr',
+    kind: 'Self-hosted regulations data service',
+    platform: 'Node.js · Docker',
+    license: 'Apache-2.0',
+    summary: 'Title 38 of the Code of Federal Regulations as a searchable local index, served over MCP and an HTTP API. No telemetry.',
+    install: 'brew install sureforgetech/tap/sureforge-cfr',
+  },
+  {
+    name: 'SureForge Zendesk',
+    repo: 'sureforge-zendesk',
+    kind: 'MCP connector for Zendesk Support',
+    platform: 'Node.js',
+    license: 'MIT',
+    summary: 'An OAuth-only MCP server that lets AI assistants search, read and update Zendesk tickets. Not affiliated with Zendesk.',
+  },
+  {
+    name: 'SureForge 1min',
+    repo: 'sureforge-1min',
+    kind: 'OpenAI-compatible gateway',
+    platform: 'Node.js',
+    license: 'MIT',
+    summary: 'Lets tools that expect the OpenAI API use 1min.ai for models, chat and images. Not affiliated with 1min.ai.',
+  },
+  {
+    name: 'SureForge Sandbox',
+    repo: 'sureforge-sandbox',
+    kind: 'Sandboxed workspace for coding agents',
+    platform: 'macOS',
+    license: 'Apache-2.0',
+    summary: 'A sealed Linux virtual machine on macOS with an allowlisted network, for running AI coding agents on public repositories.',
+  },
+  {
+    name: 'SureForge Policy (public docs)',
+    repo: 'sureforge-policy-public',
+    kind: 'Documentation and demo',
+    platform: 'Documentation',
+    license: 'CC-BY-4.0',
+    summary: 'Public architecture, trust and demo material for SureForge Policy. The product itself is proprietary.',
+  },
+];
+---
+<SiteLayout title="Open source — SureForgeTech">
+  <section class="wrap product-hero">
+    <div class="eyebrow">OPEN SOURCE</div>
+    <h1>Open source projects</h1>
+    <p class="lead">These SureForgeTech projects are free and open source. The code, issues and releases live on GitHub. To report a bug or ask for a feature, open an issue in the project's repository.</p>
+    <div class="actions">
+      <a class="button button-primary" href="https://github.com/SureForgeTech" target="_blank" rel="noopener">SureForgeTech on GitHub</a>
+      <a class="quiet-link" href="https://github.com/SureForgeTech/homebrew-tap" target="_blank" rel="noopener">Install with Homebrew <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+  <section class="wrap section">
+    <div class="product-grid oss-grid">
+      {projects.map((p) => (
+        <article class="product-card">
+          <div class="product-card-main">
+            <div class="card-top">
+              <p class="product-family">{p.platform.toUpperCase()}</p>
+              <span class="product-status">{p.license}</span>
+            </div>
+            <h3>{p.name}</h3>
+            <p class="product-kind">{p.kind}</p>
+            <p class="product-description">{p.summary}</p>
+            {p.install && <pre class="oss-install"><code>{p.install}</code></pre>}
+          </div>
+          <div class="product-card-footer">
+            <a class="quiet-link" href={gh(p.repo)} target="_blank" rel="noopener">Source on GitHub <span aria-hidden="true">↗</span></a>
+            {p.store && <a class="quiet-link" href={p.store.href} target="_blank" rel="noopener">{p.store.label} <span aria-hidden="true">↗</span></a>}
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="note oss-note">Homebrew installs come from the SureForgeTech tap. Homebrew may ask you to trust the tap once; the tap's README explains how.</p>
+  </section>
+</SiteLayout>
+<style>
+  .oss-grid { margin-top: 8px; }
+  .oss-install { margin-top: 14px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 7px; background: #f3f2ec; font-size: 11px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .oss-note { margin-top: 32px; font-size: 13px; }
+  @media (max-width: 900px) { .oss-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 580px) { .oss-grid { grid-template-columns: 1fr; } }
+</style>
