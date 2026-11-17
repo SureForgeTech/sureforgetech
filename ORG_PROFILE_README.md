@@ -22,8 +22,8 @@ SureForgeTech builds practical software for individual makers and engineering te
 | **[SureForge Trellis](https://sureforgetech.com/products/trellisforge/)** | Organize Jira issues into editable hierarchies, planning views, and reports while respecting Jira permissions. | Product information in development |
 | **[SureForge Capture (BugNarrator)](https://sureforgetech.com/products/bugnarrator/)** | Narrate macOS testing sessions and turn transcripts, screenshots, and observations into actionable bug reports. | Free · Apache-2.0 · macOS 14+ |
 | **[SureForge Terminal](https://sureforgetech.com/products/terminal-workspace/)** | Manage SSH sessions, SFTP transfers, hosts, keys, snippets, and port forwarding in a native macOS client. | Product information in development |
-| **[SureForge FM Data API](https://sureforgetech.com/products/sureforge-fm-data-api/)** | Query, inspect, and build with the FileMaker Data API from Visual Studio Code. | Free and open source · MIT |
-| **[SureForge FM Snippets](https://sureforgetech.com/products/sureforge-fm-alfred/)** | Keep useful FileMaker development patterns a few keystrokes away with Alfred snippets. Requires Alfred Powerpack. | Free · MIT · macOS |
+| **[SureForge FM Data API](https://sureforgetech.com/products/sureforge-fm-data-api/)** | Query, inspect, and build with the FileMaker Data API from Visual Studio Code. | Free and open source · Apache-2.0 |
+| **[SureForge FM Snippets](https://sureforgetech.com/products/sureforge-fm-alfred/)** | Keep useful FileMaker development patterns a few keystrokes away with Alfred snippets. Requires Alfred Powerpack. | Free · Apache-2.0 · macOS |
 | **[SureForge Flow](https://sureforgetech.com/products/flowforge/)** | Build and run multi-tenant applications with control/runtime planes, deployment management, and SSO support. | In development |
 
 Availability and maturity vary by product. Planned integrations and capabilities remain identified as planned in the product documentation. Third-party names describe compatibility and do not imply affiliation with Apple, Atlassian, Claris, or other vendors.
