@@ -1,0 +1,3 @@
+Contact: https://github.com/SureForgeTech/sureforgetech/security/advisories/new
+Canonical: https://sureforgetech.com/.well-known/security.txt
+Expires: 2027-10-31T00:00:00Z

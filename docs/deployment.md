@@ -16,6 +16,16 @@ git diff --check
 
 The build produces the homepage, nine product pages, fourteen documentation pages, support page, and 404 page. Check the homepage filters, product dialogs, navigation, favicon, documentation, and mobile layout before publishing. Product cards are rendered into the HTML and remain readable without JavaScript.
 
+The build hashes inline Astro and Starlight scripts from the final HTML and writes the baseline policy to `dist/_headers` and the [Pages advanced-mode Worker](https://developers.cloudflare.com/pages/functions/advanced-mode/) in `dist/_worker.js`. The Worker serves through the Pages asset binding and adds a fresh CSP nonce and `Cache-Control: private, no-store` to HTML. Cloudflare reads the nonce from the CSP header and adds it to the injected bootstrap. `frame-src 'self'` permits the site's same-origin challenge frame, while `frame-ancestors 'none'` and `X-Frame-Options: DENY` prevent embedding site pages. See [Cloudflare JavaScript Detections](https://developers.cloudflare.com/cloudflare-challenges/challenge-types/javascript-detections/).
+
+GitHub’s production artifact upload skips dot-directories. Cloudflare Pages serves `public/security.txt` at `/.well-known/security.txt` through an internal HTTP 200 rewrite. Before its `Expires` date, confirm the private reporting link still works, set a new UTC expiration less than one year ahead, and publish the updated file.
+
+### Verify JavaScript Detections in production
+
+1. In a fresh browser session, open DevTools and navigate to `https://sureforgetech.com/`. In Network, inspect the document response. Match the `'nonce-…'` value in `script-src` to the `nonce` on Cloudflare's injected inline bootstrap in the response body. Reload and confirm the nonce changes and each response has `Cache-Control: private, no-store`.
+2. Filter Network for `/cdn-cgi/challenge-platform/` and confirm the script initiated by the challenge frame loads successfully. Check the Console for CSP errors involving the bootstrap, frame, or challenge script.
+3. Request a missing path and confirm HTTP 404 with the HTML CSP and framing headers. Check that `/.well-known/security.txt` returns HTTP 200 with `Content-Type: text/plain; charset=utf-8`, and that `/deployment.json` reports the deployed commit. Run a documentation search to verify Pagefind under the enforced policy.
+
 ## Automatic publishing
 
 Pushes to `main` run the **Validate and deploy site** GitHub Actions workflow. The build job installs the locked dependencies, builds the static site, records the source commit in `deployment.json`, and saves `dist/` as a short-lived artifact. Only after the build passes does the production job upload that artifact to the existing Cloudflare Pages project. It then verifies the published commit through both the deployment URL and `sureforgetech.com`.

@@ -1,0 +1,2 @@
+# The deployment artifact excludes dot-directories. Serve the visible asset in place.
+/.well-known/security.txt /security.txt 200
