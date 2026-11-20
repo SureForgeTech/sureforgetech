@@ -41,20 +41,24 @@ async function writePagesHeaders({ dir }) {
     "img-src 'self' data:",
     "connect-src 'self'",
     "worker-src 'self'",
+    "frame-src 'self'",
     "base-uri 'none'",
     "object-src 'none'",
     "frame-ancestors 'none'",
     "form-action 'none'",
   ].join('; ');
 
+  const securityHeaders = {
+    'Strict-Transport-Security': 'max-age=31536000',
+    'X-Frame-Options': 'DENY',
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+  };
   const rules = [
     [
       '/*',
       `  Content-Security-Policy: ${policy}`,
-      '  Strict-Transport-Security: max-age=31536000',
-      '  X-Frame-Options: DENY',
-      '  X-Content-Type-Options: nosniff',
-      '  Referrer-Policy: strict-origin-when-cross-origin',
+      ...Object.entries(securityHeaders).map(([name, value]) => `  ${name}: ${value}`),
     ],
     [
       '/.well-known/security.txt',
@@ -66,6 +70,10 @@ async function writePagesHeaders({ dir }) {
     throw new Error('Generated _headers exceeds Cloudflare Pages limits (100 rules, 2,000 characters per line).');
   }
   await writeFile(new URL('_headers', dir), rules.map((rule) => rule.join('\n')).join('\n\n') + '\n', { flag: 'wx' });
+
+  const worker = await readFile(new URL('pages-worker.js', import.meta.url), 'utf8');
+  const config = `const { policy, securityHeaders } = ${JSON.stringify({ policy, securityHeaders })};`;
+  await writeFile(new URL('_worker.js', dir), `${config}\n\n${worker}`, { flag: 'wx' });
 }
 
 export default {
