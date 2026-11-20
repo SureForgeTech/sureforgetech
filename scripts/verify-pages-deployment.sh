@@ -17,6 +17,10 @@ if [[ ! ${CLOUDFLARE_ACCOUNT_ID:-} =~ ^[0-9a-fA-F]{32}$ || -z ${CLOUDFLARE_API_T
   echo "The Pages verifier requires a valid Cloudflare account ID and an API token." >&2
   exit 1
 fi
+if [[ -z ${PAGES_ACCESS_CLIENT_ID:-} || -z ${PAGES_ACCESS_CLIENT_SECRET:-} ]]; then
+  echo "The Pages verifier requires PAGES_ACCESS_CLIENT_ID and PAGES_ACCESS_CLIENT_SECRET." >&2
+  exit 1
+fi
 
 project_url="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/sureforgetech"
 domain=sureforgetech.com
@@ -53,7 +57,9 @@ check_response() {
 }
 
 verify_artifact() {
-  fetch "Deployment artifact" "$deployment_url/deployment.json" &&
+  fetch "Deployment artifact" "$deployment_url/deployment.json" \
+    --header "CF-Access-Client-Id: $PAGES_ACCESS_CLIENT_ID" \
+    --header "CF-Access-Client-Secret: $PAGES_ACCESS_CLIENT_SECRET" &&
     check_response "Deployment artifact" --arg revision "$GITHUB_SHA" '
       if length == 1 and .[0].commit == $revision then empty
       else "deployment.json did not report the expected commit"
