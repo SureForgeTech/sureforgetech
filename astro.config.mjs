@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
+import pagesHeaders from './scripts/pages-headers.mjs';
 
 export default defineConfig({
   site: 'https://sureforgetech.com',
@@ -29,6 +30,7 @@ export default defineConfig({
           { label: 'SureForge Flow', link: '/docs/flowforge/' }
         ] }
       ]
-    })
+    }),
+    pagesHeaders
   ]
 });

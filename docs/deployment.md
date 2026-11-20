@@ -16,6 +16,10 @@ git diff --check
 
 The build produces the homepage, nine product pages, fourteen documentation pages, support page, and 404 page. Check the homepage filters, product dialogs, navigation, favicon, documentation, and mobile layout before publishing. Product cards are rendered into the HTML and remain readable without JavaScript.
 
+The build generates `dist/_headers` from the final HTML. Its wildcard rule also covers static 404 responses. When checking the deployed headers, request both a known page and a missing path, and run a documentation search to verify Pagefind under the enforced policy.
+
+GitHub’s production artifact upload skips dot-directories. Cloudflare Pages serves `public/security.txt` at `/.well-known/security.txt` through an internal HTTP 200 rewrite. Before its `Expires` date, confirm the private reporting link still works, set a new UTC expiration less than one year ahead, and publish the updated file.
+
 ## Automatic publishing
 
 Pushes to `main` run the **Validate and deploy site** GitHub Actions workflow. The build job installs the locked dependencies, builds the static site, records the source commit in `deployment.json`, and saves `dist/` as a short-lived artifact. Only after the build passes does the production job upload that artifact to the existing Cloudflare Pages project. It then verifies the published commit through both the deployment URL and `sureforgetech.com`.
