@@ -3,21 +3,38 @@ import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parse } from 'parse5';
 
-function collectScriptHashes(node, hashes) {
+function sha256Source(text) {
+  return `'sha256-${createHash('sha256').update(text, 'utf8').digest('base64')}'`;
+}
+
+function parsedText(node) {
+  return node.childNodes.filter(({ nodeName }) => nodeName === '#text')
+    .map(({ value }) => value).join('');
+}
+
+function collectInlineHashes(node, hashes) {
+  // Hash the parsed strings, preserving whitespace after HTML newline normalization
+  // and attribute character reference decoding.
   if (node.tagName === 'script') {
     const attributes = new Map(node.attrs.map(({ name, value }) => [name, value]));
     const type = attributes.get('type')?.trim().toLowerCase();
     if (!attributes.has('src') && type !== 'application/ld+json' && type !== 'application/json') {
-      // The parser returns the script text as the browser sees it, including HTML newline normalization.
-      const script = node.childNodes.filter(({ nodeName }) => nodeName === '#text')
-        .map(({ value }) => value).join('');
+      const script = parsedText(node);
       if (script) {
-        hashes.add(`'sha256-${createHash('sha256').update(script).digest('base64')}'`);
+        hashes.scripts.add(sha256Source(script));
       }
     }
+  } else if (node.tagName === 'style') {
+    hashes.styleElements.add(sha256Source(parsedText(node)));
   }
+
+  const style = node.attrs?.find(({ name, namespace }) => name === 'style' && !namespace)?.value;
+  if (style) {
+    hashes.styleAttributes.add(sha256Source(style));
+  }
+
   for (const child of node.childNodes ?? []) {
-    collectScriptHashes(child, hashes);
+    collectInlineHashes(child, hashes);
   }
 }
 
@@ -27,17 +44,17 @@ async function writePagesHeaders({ dir }) {
   // Pages serves the root 404.html for unmatched paths.
   await readFile(new URL('404.html', dir));
 
-  const hashes = new Set();
+  const hashes = { scripts: new Set(), styleElements: new Set(), styleAttributes: new Set() };
   for (const page of pages) {
     const html = await readFile(join(page.parentPath, page.name), 'utf8');
-    collectScriptHashes(parse(html), hashes);
+    collectInlineHashes(parse(html), hashes);
   }
 
   const policy = [
     "default-src 'none'",
     // Same-origin scripts include Cloudflare's email decoder. Pagefind compiles WebAssembly.
-    ["script-src 'self' 'wasm-unsafe-eval'", ...[...hashes].sort()].join(' '),
-    "style-src 'self' 'unsafe-inline'",
+    ["script-src 'self' 'wasm-unsafe-eval'", ...[...hashes.scripts].sort()].join(' '),
+    ["style-src 'self'", ...[...hashes.styleElements].sort()].join(' '),
     "img-src 'self' data:",
     "connect-src 'self'",
     "worker-src 'self'",
@@ -72,7 +89,12 @@ async function writePagesHeaders({ dir }) {
   await writeFile(new URL('_headers', dir), rules.map((rule) => rule.join('\n')).join('\n\n') + '\n', { flag: 'wx' });
 
   const worker = await readFile(new URL('pages-worker.js', import.meta.url), 'utf8');
-  const config = `const { policy, securityHeaders } = ${JSON.stringify({ policy, securityHeaders })};`;
+  // The full attribute allowlist exceeds the Pages _headers line limit.
+  const styleAttributes = hashes.styleAttributes.size
+    ? ["'unsafe-hashes'", ...[...hashes.styleAttributes].sort()].join(' ')
+    : "'none'";
+  const workerPolicy = `${policy}; style-src-attr ${styleAttributes}`;
+  const config = `const { policy, securityHeaders } = ${JSON.stringify({ policy: workerPolicy, securityHeaders })};`;
   await writeFile(new URL('_worker.js', dir), `${config}\n\n${worker}`, { flag: 'wx' });
 }
 
