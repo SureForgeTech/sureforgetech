@@ -71,6 +71,8 @@ jobs:
       - name: Verify published revision
         env:
           DEPLOYMENT_URL: ${{ steps.publish.outputs.deployment-url }}
+          PAGES_ACCESS_CLIENT_ID: ${{ secrets.PAGES_ACCESS_CLIENT_ID }}
+          PAGES_ACCESS_CLIENT_SECRET: ${{ secrets.PAGES_ACCESS_CLIENT_SECRET }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: bash scripts/verify-pages-deployment.sh

@@ -30,7 +30,7 @@ GitHub’s production artifact upload skips dot-directories. Cloudflare Pages se
 
 Pushes to `main` run the **Validate and deploy site** GitHub Actions workflow. The build job installs the locked dependencies, builds the static site, records the source commit in `deployment.json`, and saves `dist/` as a short-lived artifact. Only after the build passes does the production job upload that artifact to the existing Cloudflare Pages project. Verification checks the published artifact and Cloudflare Pages metadata.
 
-- The immutable HTTPS deployment URL from Wrangler serves `/deployment.json` with the expected GitHub commit. The runner requests this file without credentials.
+- The runner validates the exact immutable HTTPS deployment URL from Wrangler, authenticates the `/deployment.json` request with a Cloudflare Access service token, and checks that the manifest reports the expected GitHub commit. The request does not follow redirects.
 - The authenticated Cloudflare Pages API confirms that the project's canonical production deployment matches the commit and URL from the workflow, that its deploy stage succeeded, and that `sureforgetech.com` is active in the project.
 
 After a release, independently smoke-test `https://sureforgetech.com/` in a browser using the production checks above. This confirms that the custom domain serves the expected revision and that the site works under the live Cloudflare policies.
@@ -41,8 +41,14 @@ The GitHub `production` environment permits deployment only from `main` and hold
 
 - `CLOUDFLARE_API_TOKEN`: the dedicated Pages deployment credential.
 - `CLOUDFLARE_ACCOUNT_ID`: the account containing the Pages project.
+- `PAGES_ACCESS_CLIENT_ID` holds the Access service token's client ID.
+- `PAGES_ACCESS_CLIENT_SECRET` holds the Access service token's client secret.
 
 The deployment token needs Pages Edit access for that account. Store replacements directly in the environment's encrypted secrets. Do not put tokens in workflow files, artifacts, logs, or pull requests. Existing tokens for other sites may be source-IP restricted; the dedicated GitHub Actions token must support the hosted runner used by this workflow.
+
+The Cloudflare Pages preview restriction also protects the immutable production deployment URL. Configure a Cloudflare Access Service Auth policy for the service token scoped to `*.sureforgetech.pages.dev/deployment.json`. Set the service token to expire after one year, then rotate it and update both GitHub `production` Access secrets before it expires. See [Cloudflare service tokens](https://developers.cloudflare.com/cloudflare-one/access-controls/service-credentials/service-tokens/) and [Access application paths](https://developers.cloudflare.com/cloudflare-one/access-controls/policies/app-paths/).
+
+The verifier requires both values before making any requests and sends them only to `/deployment.json` on the validated Wrangler hostname. The Pages API checks use the separate Cloudflare API token.
 
 ## Manual publishing
 
