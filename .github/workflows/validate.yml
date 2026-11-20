@@ -71,21 +71,6 @@ jobs:
       - name: Verify published revision
         env:
           DEPLOYMENT_URL: ${{ steps.publish.outputs.deployment-url }}
-        run: |
-          set -euo pipefail
-          test -n "$DEPLOYMENT_URL"
-          for origin in "$DEPLOYMENT_URL" "https://sureforgetech.com"; do
-            verified=false
-            for attempt in {1..12}; do
-              if curl --fail --silent --show-error --max-time 15 \
-                "${origin}/deployment.json?revision=${GITHUB_SHA}" \
-                | jq --exit-status --arg revision "$GITHUB_SHA" '.commit == $revision' > /dev/null; then
-                echo "Verified ${GITHUB_SHA} at ${origin}"
-                verified=true
-                break
-              fi
-              echo "Waiting for ${origin} to serve the new revision (attempt ${attempt}/12)"
-              sleep 5
-            done
-            test "$verified" = true
-          done
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: bash scripts/verify-pages-deployment.sh

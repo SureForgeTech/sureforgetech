@@ -28,7 +28,12 @@ GitHub’s production artifact upload skips dot-directories. Cloudflare Pages se
 
 ## Automatic publishing
 
-Pushes to `main` run the **Validate and deploy site** GitHub Actions workflow. The build job installs the locked dependencies, builds the static site, records the source commit in `deployment.json`, and saves `dist/` as a short-lived artifact. Only after the build passes does the production job upload that artifact to the existing Cloudflare Pages project. It then verifies the published commit through both the deployment URL and `sureforgetech.com`.
+Pushes to `main` run the **Validate and deploy site** GitHub Actions workflow. The build job installs the locked dependencies, builds the static site, records the source commit in `deployment.json`, and saves `dist/` as a short-lived artifact. Only after the build passes does the production job upload that artifact to the existing Cloudflare Pages project. Verification checks the published artifact and Cloudflare Pages metadata.
+
+- The immutable HTTPS deployment URL from Wrangler serves `/deployment.json` with the expected GitHub commit. The runner requests this file without credentials.
+- The authenticated Cloudflare Pages API confirms that the project's canonical production deployment matches the commit and URL from the workflow, that its deploy stage succeeded, and that `sureforgetech.com` is active in the project.
+
+After a release, independently smoke-test `https://sureforgetech.com/` in a browser using the production checks above. This confirms that the custom domain serves the expected revision and that the site works under the live Cloudflare policies.
 
 Pull requests and other branches run validation without publishing. Production deploys are serialized to avoid overlapping uploads. The workflow can also be run manually from GitHub Actions on `main`.
 
