@@ -32,5 +32,6 @@ declined with a rationale.
 
 ## Safe Harbor
 
-Good-faith research that avoids privacy violations, service disruption, data destruction, and
-public disclosure before remediation is authorized by the maintainers is welcome.
+Good-faith research is welcome and authorized when it avoids privacy violations, service disruption
+and data destruction. Please do not disclose a vulnerability publicly until the maintainers confirm
+that a fix is available, or until a disclosure date agreed with you has arrived.
